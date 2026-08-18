@@ -8,6 +8,9 @@
 **The private, native macOS time tracker** — focus, insights, and healthy-work
 breaks, **100% on your Mac**. Nothing is ever uploaded.
 
+A free, open-source, on-device **alternative to RescueTime, Timing, Rize, and
+ActivityWatch** for macOS — no cloud, no account, no telemetry.
+
 [![CI](https://github.com/ajaysuwalka/ticker-app/actions/workflows/ci.yml/badge.svg)](https://github.com/ajaysuwalka/ticker-app/actions/workflows/ci.yml)
 [![CodeQL](https://github.com/ajaysuwalka/ticker-app/actions/workflows/codeql.yml/badge.svg)](https://github.com/ajaysuwalka/ticker-app/actions/workflows/codeql.yml)
 [![Release](https://img.shields.io/github/v/release/ajaysuwalka/ticker-app?sort=semver)](https://github.com/ajaysuwalka/ticker-app/releases)
@@ -173,3 +176,7 @@ Ticker possible.
 ## License
 
 [MIT](LICENSE) © 2026 Ajay Suwalka
+
+---
+
+<sub>**Keywords:** macOS time tracker · app usage & activity tracker · focus timer & deep-work tracking · screen time · productivity analytics · menu bar app · wellness / break reminders · privacy-first · local-first / on-device · open source · SwiftUI · Apple Silicon + Intel · a free RescueTime / Timing / Rize / ActivityWatch alternative for Mac.</sub>
