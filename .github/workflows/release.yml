@@ -25,6 +25,7 @@ jobs:
       AC_API_KEY_ID: ${{ secrets.AC_API_KEY_ID }}
       AC_API_ISSUER_ID: ${{ secrets.AC_API_ISSUER_ID }}
       AC_API_KEY_P8: ${{ secrets.AC_API_KEY_P8 }}
+      CASK_PUSH_TOKEN: ${{ secrets.CASK_PUSH_TOKEN }}
     steps:
       - uses: actions/checkout@v7
 
@@ -111,3 +112,24 @@ jobs:
             Ticker-*.dmg
             Ticker-*.zip
             checksums.txt
+
+      # Bump the Homebrew cask (version + sha256) and push it to main. Needs a
+      # PAT because main is protected (the built-in GITHUB_TOKEN can't push to
+      # it). Skipped when the signed DMG or the token is absent.
+      - name: Update Homebrew cask
+        if: env.MACOS_CERT_P12 != '' && env.CASK_PUSH_TOKEN != ''
+        run: |
+          set -euo pipefail
+          VERSION="${GITHUB_REF_NAME#v}"
+          SHA="$(shasum -a 256 "Ticker-${VERSION}.dmg" | awk '{print $1}')"
+          git fetch origin main --depth=1
+          git checkout -B main origin/main
+          sed -i '' -E "s/  version \"[^\"]+\"/  version \"${VERSION}\"/" Casks/ticker.rb
+          sed -i '' -E "s/  sha256 \"[0-9a-f]+\"/  sha256 \"${SHA}\"/" Casks/ticker.rb
+          git add Casks/ticker.rb
+          if git diff --cached --quiet; then echo "cask already current"; exit 0; fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "cask: bump to ${VERSION} [skip ci]"
+          git push "https://x-access-token:${CASK_PUSH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" HEAD:main
+          echo "Cask bumped to ${VERSION} (${SHA})"

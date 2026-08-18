@@ -84,7 +84,19 @@ Then tag a release and it's built, signed, notarized, stapled, and published:
 git tag v1.0.0 && git push origin v1.0.0
 ```
 
-## Homebrew cask (later)
+## Auto-bumping the Homebrew cask
+
+`release.yml` updates `Casks/ticker.rb` (`version` + `sha256`) and pushes it to
+`main` on every release. Because `main` is a protected branch, the built-in
+`GITHUB_TOKEN` can't push to it, so this step needs one extra secret:
+
+| Secret | What |
+|---|---|
+| `CASK_PUSH_TOKEN` | A **fine-grained PAT** (github.com → Settings → Developer settings → Fine-grained tokens) scoped to `ajaysuwalka/ticker-app` with **Contents: Read and write**. As a repo admin, its pushes bypass branch protection. |
+
+Without it, the cask step is skipped and you bump `Casks/ticker.rb` by hand.
+
+## Homebrew cask (details)
 
 Once releases are published, a cask lets users `brew install --cask ticker`:
 
