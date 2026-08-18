@@ -8,7 +8,7 @@ cask "ticker" do
   desc "Private, native macOS time tracker with focus & wellness breaks"
   homepage "https://github.com/ajaysuwalka/ticker-app"
 
-  depends_on macos: ">= :sonoma" # macOS 14+
+  depends_on macos: :sonoma # macOS 14+ (minimum)
 
   app "Ticker.app"
 
