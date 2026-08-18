@@ -37,7 +37,7 @@ jobs:
       - name: Swift version
         run: swift --version
 
-      - name: Build the app (universal: arm64 + x86_64)
+      - name: "Build the app (universal: arm64 + x86_64)"
         run: UNIVERSAL=1 ./build.sh   # ad-hoc; re-signed with Developer ID below if configured
 
       # ---- Signed + notarized path (only when signing secrets are present) ----
