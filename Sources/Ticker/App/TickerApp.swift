@@ -11,6 +11,7 @@ struct TickerApp: App {
     @StateObject private var pausedPresenter: PausedReminderPresenter
     @StateObject private var idlePresenter: IdleReviewPresenter
     @StateObject private var notifications: NotificationCoordinator
+    @StateObject private var updates = UpdateChecker()
 
     init() {
         let store = TickerStore()
@@ -33,6 +34,7 @@ struct TickerApp: App {
                 .environmentObject(tracker)
                 .environmentObject(dashboard)
                 .environmentObject(breaks)
+                .environmentObject(updates)
                 .frame(minWidth: 900, minHeight: 640)
                 .onAppear(perform: bootstrap)
         }
@@ -72,6 +74,7 @@ struct TickerApp: App {
         pausedPresenter.start()
         idlePresenter.start()
         notifications.start()
+        updates.start()
 
         // Run at login by default — set up once on first launch so the app is
         // there when you sign in. Users can turn it off in Settings → General.

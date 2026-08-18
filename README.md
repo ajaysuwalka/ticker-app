@@ -120,9 +120,13 @@ next launch — the signing cert from step 3 means you only do this once).
 ## Privacy
 
 Everything is stored locally in `~/Library/Application Support/Ticker/`
-(`data.json` + a `shots/` thumbnail folder). Nothing leaves your Mac. Ticker
-counts *how many* keys/clicks you make — never *which* keys or *what* you type.
-Screenshots are off unless you turn them on, and are auto-deleted.
+(`data.json` + a `shots/` thumbnail folder). **Your tracked data never leaves
+your Mac.** Ticker counts *how many* keys/clicks you make — never *which* keys or
+*what* you type. Screenshots are off unless you turn them on, and are
+auto-deleted.
+
+Ticker's **only** network request is an anonymous **version check** to GitHub, so
+it can tell you when an update is available — it sends none of your data.
 
 To wipe data: **Settings → Data → Clear all tracked data**, or delete the folder.
 

@@ -222,7 +222,8 @@ struct GeneralSettings: View {
             Section("Privacy") {
                 Label("Ticker records the active app and its window title (e.g. browser tab or project) and "
                       + "counts how many keys/clicks you make — never which keys or what you type. Screenshots "
-                      + "are off unless you turn on the Screen Timeline above. Everything stays on this Mac.",
+                      + "are off unless you turn on the Screen Timeline above. Your data stays on this Mac; the "
+                      + "only network request Ticker makes is a version check to GitHub.",
                       systemImage: "hand.raised.fill")
                     .font(.caption)
                     .foregroundStyle(.secondary)

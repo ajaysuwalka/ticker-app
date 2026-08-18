@@ -37,6 +37,13 @@ jobs:
       - name: Swift version
         run: swift --version
 
+      - name: Sync app version to the tag
+        run: |
+          V="${GITHUB_REF_NAME#v}"
+          /usr/libexec/PlistBuddy -c "Set :CFBundleShortVersionString $V" Info.plist
+          /usr/libexec/PlistBuddy -c "Set :CFBundleVersion $V" Info.plist
+          echo "Info.plist version set to $V"
+
       - name: "Build the app (universal: arm64 + x86_64)"
         run: UNIVERSAL=1 ./build.sh   # ad-hoc; re-signed with Developer ID below if configured
 

@@ -29,6 +29,7 @@ enum DashboardSection: String, CaseIterable, Identifiable {
 struct DashboardView: View {
     @EnvironmentObject private var model: DashboardViewModel
     @EnvironmentObject private var breaks: BreakManager
+    @EnvironmentObject private var updates: UpdateChecker
 
     @State private var showCalendar = false
     @State private var viewerIndex = 0
@@ -108,12 +109,10 @@ struct DashboardView: View {
                 Image(systemName: "waveform.path.ecg")
                     .font(.system(size: 16, weight: .bold)).foregroundStyle(brand)
                 Text("Ticker").font(.system(size: 18, weight: .bold, design: .rounded))
+                Spacer(minLength: 8)
+                LiveStatusView()   // status sits inline with the wordmark
             }
-            .padding(.horizontal, 14).padding(.top, 16).padding(.bottom, 8)
-            LiveStatusView()
-                .padding(.horizontal, 14).padding(.bottom, 10)
-            SidebarBreaksView()
-                .padding(.horizontal, 14).padding(.bottom, 12)
+            .padding(.horizontal, 14).padding(.top, 16).padding(.bottom, 12)
             Divider()
             List(selection: $section) {
                 ForEach(DashboardSection.allCases) { s in
@@ -121,6 +120,10 @@ struct DashboardView: View {
                 }
             }
             .listStyle(.sidebar)
+            // "Next breaks" is separate from navigation — pin it to the bottom.
+            Divider()
+            SidebarBreaksView()
+                .padding(.horizontal, 14).padding(.top, 10).padding(.bottom, 12)
         }
         .navigationSplitViewColumnWidth(min: 200, ideal: 216, max: 260)
     }
@@ -134,20 +137,44 @@ struct DashboardView: View {
             }
             controls
             if !accessibilityOK { permissionBanner }
+            if let update = updates.available { updateBanner(update) }
         }
         .padding(.horizontal, 24).padding(.vertical, 14)
     }
 
-    private var toolbarActions: some View {
+    private func updateBanner(_ update: UpdateInfo) -> some View {
         HStack(spacing: 10) {
+            Image(systemName: "arrow.down.circle.fill")
+                .foregroundStyle(.white)
+            Text("Ticker \(update.version) is available")
+                .font(.system(size: 12, weight: .semibold)).foregroundStyle(.white)
+            Text("You're on \(Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "—").")
+                .font(.system(size: 11)).foregroundStyle(.white.opacity(0.8))
+            Spacer()
+            Button("Download") { updates.openDownloadPage() }
+                .buttonStyle(.borderedProminent).controlSize(.small).tint(.white)
+                .foregroundStyle(Color(red: 0.20, green: 0.45, blue: 0.95))
+        }
+        .padding(.horizontal, 12).padding(.vertical, 8)
+        .background(Color(red: 0.20, green: 0.45, blue: 0.95),
+                    in: RoundedRectangle(cornerRadius: 10, style: .continuous))
+    }
+
+    private var toolbarActions: some View {
+        HStack(spacing: 12) {
             TrackingToggle()
-            VStack(alignment: .trailing, spacing: 1) {
-                Text("Updated \(lastRefreshed, format: .dateTime.hour().minute())")
-                    .font(.system(size: 11, weight: .medium)).foregroundStyle(.secondary)
-                Text("auto every 5 min").font(.system(size: 9)).foregroundStyle(.tertiary)
+
+            // Quiet, flat "last updated" + a borderless refresh icon — matches
+            // the weight of Pause/Export instead of a heavy pill. Cadence detail
+            // lives in the tooltip.
+            Text("Updated \(lastRefreshed, format: .dateTime.hour().minute())")
+                .font(.system(size: 11)).foregroundStyle(.secondary).monospacedDigit()
+            Button(action: model.rebuild) {
+                Image(systemName: "arrow.clockwise").font(.system(size: 12, weight: .semibold))
             }
-            Button(action: model.rebuild) { Image(systemName: "arrow.clockwise") }
-                .buttonStyle(.bordered).help("Refresh now")
+            .buttonStyle(.borderless)
+            .help("Refresh now — auto-refreshes every 5 minutes")
+
             Menu {
                 Button { model.exportWeeklyPDF() } label: { Label("Weekly report (PDF)", systemImage: "doc.richtext") }
                 Button { model.exportMonthlyPDF() } label: { Label("Monthly report (PDF)", systemImage: "doc.richtext") }
