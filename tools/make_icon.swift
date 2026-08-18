@@ -1,7 +1,8 @@
 import AppKit
 
-// Renders a 1024×1024 app icon: an indigo→cyan squircle with a white
-// ECG/ticker waveform (matching the menu-bar glyph). Writes build/icon-1024.png.
+// Renders a 1024×1024 app icon: a deep-blue squircle (Testlio brand palette)
+// with an orange ECG/ticker waveform accent. The mark is Ticker's own; only the
+// colours are aligned to Testlio's brand. Writes build/icon-1024.png.
 
 let size: CGFloat = 1024
 guard let rep = NSBitmapImageRep(
@@ -23,9 +24,10 @@ let path = CGPath(roundedRect: rect, cornerWidth: radius, cornerHeight: radius, 
 ctx.saveGState()
 ctx.addPath(path)
 ctx.clip()
+// Testlio-brand deep blue: dark navy → medium blue.
 let colors = [
-    NSColor(srgbRed: 0.38, green: 0.31, blue: 0.92, alpha: 1).cgColor,
-    NSColor(srgbRed: 0.12, green: 0.71, blue: 0.82, alpha: 1).cgColor
+    NSColor(srgbRed: 0.043, green: 0.106, blue: 0.243, alpha: 1).cgColor,
+    NSColor(srgbRed: 0.106, green: 0.243, blue: 0.482, alpha: 1).cgColor
 ] as CFArray
 let gradient = CGGradient(colorsSpace: CGColorSpaceCreateDeviceRGB(),
                           colors: colors, locations: [0, 1])!
@@ -51,7 +53,8 @@ let points = [
     p(0.15, 0.50), p(0.30, 0.50), p(0.37, 0.50), p(0.435, 0.35),
     p(0.50, 0.74), p(0.565, 0.24), p(0.63, 0.50), p(0.70, 0.50), p(0.85, 0.50)
 ]
-ctx.setStrokeColor(NSColor.white.cgColor)
+// Testlio-brand orange accent for the waveform.
+ctx.setStrokeColor(NSColor(srgbRed: 1.0, green: 0.475, blue: 0.204, alpha: 1).cgColor)
 ctx.setLineWidth(size * 0.052)
 ctx.setLineJoin(.round)
 ctx.setLineCap(.round)
