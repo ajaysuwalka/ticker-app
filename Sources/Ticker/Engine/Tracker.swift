@@ -80,7 +80,7 @@ final class Tracker: ObservableObject {
         guard timer == nil else { return }
         monitor.start()
         let timer = Timer(timeInterval: 1.0, repeats: true) { [weak self] _ in
-            Task { @MainActor in self?.tick() }
+            MainActor.assumeIsolated { self?.tick() }   // fires on the main run loop
         }
         RunLoop.main.add(timer, forMode: .common)
         self.timer = timer
@@ -115,7 +115,7 @@ final class Tracker: ObservableObject {
         pausedReminderActive = false
         nextPausedReminder = Date().addingTimeInterval(Self.pausedReminderInterval)
         let t = Timer(timeInterval: 30, repeats: true) { [weak self] _ in
-            Task { @MainActor in self?.checkPausedReminder() }
+            MainActor.assumeIsolated { self?.checkPausedReminder() }
         }
         RunLoop.main.add(t, forMode: .common)
         pausedTimer = t
