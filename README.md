@@ -62,10 +62,11 @@ is the one that's **native, beautiful, and 100% on-device** — and it folds
 
 ## Screenshots
 
-<!-- Drop clean captures into docs/screenshots/ and update these. -->
-| Overview | Apps | Timeline |
-|---|---|---|
-| ![Overview](docs/screenshots/overview.png) | ![Apps](docs/screenshots/apps.png) | ![Timeline](docs/screenshots/timeline.png) |
+| Overview | Insights |
+|---|---|
+| ![Overview](docs/screenshots/overview.png) | ![Insights](docs/screenshots/insights.png) |
+| **Apps** | **Timeline** |
+| ![Apps](docs/screenshots/apps.png) | ![Timeline](docs/screenshots/timeline.png) |
 
 ---
 
