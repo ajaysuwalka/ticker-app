@@ -5,9 +5,6 @@ import UniformTypeIdentifiers
 
 // MARK: - PDF export
 
-// PDF layout is inherently long (many drawn sections); the body-length rule
-// doesn't add value here.
-// swiftlint:disable type_body_length
 enum PDFReporter {
     /// Builds a light-themed report for the interval and saves it as a PDF.
     @MainActor
