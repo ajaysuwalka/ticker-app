@@ -14,7 +14,7 @@ jobs:
     name: Build, test & lint
     runs-on: macos-14
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       - name: Select latest installed Xcode (needed for XCTest / swift test)
         run: |
@@ -46,7 +46,7 @@ jobs:
             -ignore-filename-regex='(Tests|\.build)/' > coverage.lcov
 
       - name: Upload coverage artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: coverage
           path: |
@@ -54,7 +54,7 @@ jobs:
             coverage.lcov
 
       - name: Upload coverage to Codecov (optional)
-        uses: codecov/codecov-action@v4
+        uses: codecov/codecov-action@v7
         with:
           files: coverage.lcov
           fail_ci_if_error: false
