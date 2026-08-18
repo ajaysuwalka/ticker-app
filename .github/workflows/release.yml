@@ -2,6 +2,10 @@ name: Release
 
 # Tag a version to publish a GitHub Release automatically:
 #   git tag v1.0.0 && git push origin v1.0.0
+#
+# If the maintainer has configured the signing secrets (see docs/DISTRIBUTION.md),
+# the app is signed with Developer ID, notarized by Apple, stapled, and shipped as
+# a DMG. Without those secrets (e.g. on a fork), it falls back to an unsigned zip.
 on:
   push:
     tags: ['v*']
@@ -13,45 +17,84 @@ jobs:
   release:
     name: Build & publish
     runs-on: macos-14
+    env:
+      MACOS_CERT_P12: ${{ secrets.MACOS_CERT_P12 }}
+      MACOS_CERT_PASSWORD: ${{ secrets.MACOS_CERT_PASSWORD }}
+      KEYCHAIN_PASSWORD: ${{ secrets.KEYCHAIN_PASSWORD }}
+      DEVELOPER_ID: ${{ secrets.DEVELOPER_ID }}
+      AC_API_KEY_ID: ${{ secrets.AC_API_KEY_ID }}
+      AC_API_ISSUER_ID: ${{ secrets.AC_API_ISSUER_ID }}
+      AC_API_KEY_P8: ${{ secrets.AC_API_KEY_P8 }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       - name: Swift version
         run: swift --version
 
       - name: Build the app
-        run: ./build.sh
+        run: ./build.sh          # ad-hoc; re-signed with Developer ID below if configured
 
-      - name: Package artifacts
+      # ---- Signed + notarized path (only when signing secrets are present) ----
+      - name: Import Developer ID certificate
+        if: env.MACOS_CERT_P12 != ''
         run: |
-          VERSION="${GITHUB_REF_NAME}"
-          # Built .app (ad-hoc signed — see release notes about Gatekeeper)
+          set -euo pipefail
+          KC=build.keychain
+          security create-keychain -p "$KEYCHAIN_PASSWORD" "$KC"
+          security set-keychain-settings -lut 21600 "$KC"
+          security unlock-keychain -p "$KEYCHAIN_PASSWORD" "$KC"
+          echo "$MACOS_CERT_P12" | base64 --decode > cert.p12
+          security import cert.p12 -k "$KC" -P "$MACOS_CERT_PASSWORD" -T /usr/bin/codesign
+          security list-keychains -d user -s "$KC" login.keychain
+          security set-key-partition-list -S apple-tool:,apple: -s -k "$KEYCHAIN_PASSWORD" "$KC"
+          rm -f cert.p12
+
+      - name: Sign, notarize & package DMG
+        if: env.MACOS_CERT_P12 != ''
+        run: |
+          set -euo pipefail
+          VERSION="${GITHUB_REF_NAME#v}"
+          APP="build/Ticker.app"
+          codesign --force --deep --options runtime --timestamp --sign "$DEVELOPER_ID" "$APP"
+          codesign --verify --strict --verbose=2 "$APP"
+
+          STAGING="$(mktemp -d)"; cp -R "$APP" "$STAGING/"; ln -s /Applications "$STAGING/Applications"
+          DMG="Ticker-${VERSION}.dmg"
+          hdiutil create -volname "Ticker ${VERSION}" -srcfolder "$STAGING" -ov -format UDZO "$DMG"
+
+          echo "$AC_API_KEY_P8" | base64 --decode > AuthKey.p8
+          xcrun notarytool submit "$DMG" \
+            --key AuthKey.p8 --key-id "$AC_API_KEY_ID" --issuer "$AC_API_ISSUER_ID" --wait
+          rm -f AuthKey.p8
+          xcrun stapler staple "$DMG"
+          spctl -a -vvv -t install "$DMG" || true
+          shasum -a 256 "$DMG" > checksums.txt
+
+      # ---- Unsigned fallback (no secrets: forks, or before you enroll) ----
+      - name: Package unsigned artifacts
+        if: env.MACOS_CERT_P12 == ''
+        run: |
+          set -euo pipefail
+          VERSION="${GITHUB_REF_NAME#v}"
           ditto -c -k --sequesterRsrc --keepParent "build/Ticker.app" "Ticker-${VERSION}.zip"
-          # Source archive (the recommended way to run Ticker — builds locally, no Gatekeeper wall)
           git archive --format=zip --prefix="ticker/" -o "Ticker-source-${VERSION}.zip" HEAD
           shasum -a 256 Ticker-*.zip > checksums.txt
-          cat checksums.txt
 
       - name: Create GitHub Release
-        uses: softprops/action-gh-release@v2
+        uses: softprops/action-gh-release@v3
         with:
           generate_release_notes: true
-          fail_on_unmatched_files: true
+          fail_on_unmatched_files: false
           body: |
-            ### Install (recommended: build from source — 10 seconds, no Gatekeeper wall)
-            ```bash
-            unzip Ticker-source-${{ github.ref_name }}.zip && cd ticker
-            ./tools/make-signing-cert.sh      # one-time: stable permissions
-            ./build.sh && open build/Ticker.app
-            ```
+            ### Install
+            Download **`Ticker-${{ github.ref_name }}.dmg`**, open it, and drag Ticker to
+            Applications. It's signed with Developer ID and notarized by Apple — no
+            Gatekeeper wall.
 
-            A prebuilt **`Ticker-${{ github.ref_name }}.zip`** is also attached. It is
-            ad-hoc signed (not notarized), so macOS will quarantine it — after unzipping run:
-            ```bash
-            xattr -dr com.apple.quarantine Ticker.app
-            ```
+            Building from source also works — see the README.
 
-            `checksums.txt` contains SHA-256 hashes for every asset.
+            `checksums.txt` has SHA-256 hashes for every asset.
           files: |
+            Ticker-*.dmg
             Ticker-*.zip
             checksums.txt

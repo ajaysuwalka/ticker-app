@@ -57,18 +57,32 @@ staples the app **and** the DMG, then verifies with `spctl`. The result is
   [`.github/workflows/release.yml`](../.github/workflows/release.yml)).
 - Bump `CFBundleShortVersionString` / `CFBundleVersion` in `Info.plist` per release.
 
-### CI notarization (optional)
+### CI notarization (automated releases)
 
-To notarize in GitHub Actions, add these repo secrets and extend `release.yml`:
+`release.yml` already does the full signed + notarized DMG pipeline on every
+`v*` tag — it just needs these repo secrets (**Settings → Secrets and variables →
+Actions → New repository secret**). Until they're set, releases fall back to an
+unsigned zip, so forks still work.
 
-| Secret | What |
+| Secret | What / how to get it |
 |---|---|
-| `DEVELOPER_ID_CERT_P12` | base64 of your Developer ID cert `.p12` |
-| `DEVELOPER_ID_CERT_PASSWORD` | password for the `.p12` |
-| `NOTARY_APPLE_ID` / `NOTARY_TEAM_ID` / `NOTARY_PASSWORD` | notarization creds |
+| `DEVELOPER_ID` | Your identity string, e.g. `Developer ID Application: Ajay Suwalka (TEAMID)` (`security find-identity -v -p codesigning`). |
+| `MACOS_CERT_P12` | base64 of your exported Developer ID cert: `base64 -i DeveloperID.p12 \| pbcopy`. |
+| `MACOS_CERT_PASSWORD` | The password you set when exporting the `.p12`. |
+| `KEYCHAIN_PASSWORD` | Any throwaway string (CI uses it for a temporary keychain). |
+| `AC_API_KEY_ID` | App Store Connect API **Key ID** (Users and Access → Integrations → App Store Connect API). |
+| `AC_API_ISSUER_ID` | The **Issuer ID** shown on that same page. |
+| `AC_API_KEY_P8` | base64 of the downloaded `AuthKey_XXXX.p8`: `base64 -i AuthKey_XXXX.p8 \| pbcopy`. |
 
-The job imports the cert into a temporary keychain, runs `tools/dist.sh`, and
-uploads the DMG. (Left as an opt-in because it needs your Apple secrets.)
+**Export the cert as `.p12`:** open **Keychain Access**, find *Developer ID
+Application: …*, right-click → **Export**, choose *Personal Information Exchange
+(.p12)*, set a password (→ `MACOS_CERT_PASSWORD`).
+
+Then tag a release and it's built, signed, notarized, stapled, and published:
+
+```bash
+git tag v1.0.0 && git push origin v1.0.0
+```
 
 ## Homebrew cask (later)
 
