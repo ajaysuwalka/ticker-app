@@ -1,0 +1,20 @@
+# Build products
+.build/
+build/
+*.app
+
+# SwiftPM
+.swiftpm/
+Package.resolved
+
+# macOS
+.DS_Store
+
+# Editor / tooling
+.claude/
+*.xcuserstate
+*.xcworkspace/xcuserdata/
+
+# Local artifacts
+*.zip
+*.dmg

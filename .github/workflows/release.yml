@@ -1,0 +1,57 @@
+name: Release
+
+# Tag a version to publish a GitHub Release automatically:
+#   git tag v1.0.0 && git push origin v1.0.0
+on:
+  push:
+    tags: ['v*']
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    name: Build & publish
+    runs-on: macos-14
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Swift version
+        run: swift --version
+
+      - name: Build the app
+        run: ./build.sh
+
+      - name: Package artifacts
+        run: |
+          VERSION="${GITHUB_REF_NAME}"
+          # Built .app (ad-hoc signed — see release notes about Gatekeeper)
+          ditto -c -k --sequesterRsrc --keepParent "build/Ticker.app" "Ticker-${VERSION}.zip"
+          # Source archive (the recommended way to run Ticker — builds locally, no Gatekeeper wall)
+          git archive --format=zip --prefix="ticker/" -o "Ticker-source-${VERSION}.zip" HEAD
+          shasum -a 256 Ticker-*.zip > checksums.txt
+          cat checksums.txt
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          generate_release_notes: true
+          fail_on_unmatched_files: true
+          body: |
+            ### Install (recommended: build from source — 10 seconds, no Gatekeeper wall)
+            ```bash
+            unzip Ticker-source-${{ github.ref_name }}.zip && cd ticker
+            ./tools/make-signing-cert.sh      # one-time: stable permissions
+            ./build.sh && open build/Ticker.app
+            ```
+
+            A prebuilt **`Ticker-${{ github.ref_name }}.zip`** is also attached. It is
+            ad-hoc signed (not notarized), so macOS will quarantine it — after unzipping run:
+            ```bash
+            xattr -dr com.apple.quarantine Ticker.app
+            ```
+
+            `checksums.txt` contains SHA-256 hashes for every asset.
+          files: |
+            Ticker-*.zip
+            checksums.txt

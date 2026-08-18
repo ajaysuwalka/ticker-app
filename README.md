@@ -1,0 +1,174 @@
+<div align="center">
+
+<!-- Replace with your logo: docs/screenshots/logo.png (see docs/BRANDING.md) -->
+# ⏱️ Ticker
+
+### Your workday, measured privately.
+
+**The private, native macOS time tracker** — focus, insights, and healthy-work
+breaks, **100% on your Mac**. Nothing is ever uploaded.
+
+[![CI](https://github.com/ajaysuwalka/ticker-app/actions/workflows/ci.yml/badge.svg)](https://github.com/ajaysuwalka/ticker-app/actions/workflows/ci.yml)
+[![CodeQL](https://github.com/ajaysuwalka/ticker-app/actions/workflows/codeql.yml/badge.svg)](https://github.com/ajaysuwalka/ticker-app/actions/workflows/codeql.yml)
+[![Release](https://img.shields.io/github/v/release/ajaysuwalka/ticker-app?sort=semver)](https://github.com/ajaysuwalka/ticker-app/releases)
+[![License: MIT](https://img.shields.io/badge/License-MIT-black.svg)](LICENSE)
+![Platform](https://img.shields.io/badge/macOS-14%2B-black?logo=apple)
+![Made with Swift](https://img.shields.io/badge/Swift-SwiftUI-orange?logo=swift&logoColor=white)
+[![PRs welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md)
+
+<!-- Replace with a real GIF/screenshot: docs/screenshots/dashboard.png -->
+<img src="docs/screenshots/dashboard.png" alt="Ticker dashboard" width="820">
+
+</div>
+
+---
+
+## Why Ticker?
+
+Most time trackers either ship your keystrokes to the cloud (RescueTime, Rize,
+Timing) or feel like a database with a UI (the venerable ActivityWatch). Ticker
+is the one that's **native, beautiful, and 100% on-device** — and it folds
+**focus tracking + wellness breaks** into the same app.
+
+- 🔒 **Private by design.** Everything lives in `~/Library/Application Support/Ticker/`. No servers, no account, no telemetry. Ticker counts *how many* keys/clicks you make — **never which keys or what you type**.
+- 🖥️ **Truly native.** SwiftUI + Swift Charts. A menu-bar companion and a full dashboard, at home on macOS.
+- 🎯 **Real focus, not vanity minutes.** Focus counts *continuous* streaks, so the goal reflects deep work — not scattered productive seconds.
+- 🧘 **Built-in wellness.** Configurable move & screen breaks with on-screen countdowns and ergonomics guidance.
+- 🧠 **Smart about your day.** Knows the difference between *idle at your desk* (reviewable — was it a meeting?) and *away* (locked/asleep — not counted).
+- ⚡ **Builds in ~10 seconds.** Distributed as source, so there's no "unidentified developer" wall.
+
+---
+
+## Features at a glance
+
+| | |
+|---|---|
+| **Tracking** | Samples the frontmost app every second; counts keys/clicks; reads the active tab/project from the window title; detects idle vs. active vs. away. |
+| **Categories** | Tag apps **Productive / Neutral / Distracting**, or **Excluded** to drop them entirely. Drag between columns. |
+| **Dashboard** | Overview · Insights · Apps · Timeline — stat tiles, activity graph, a **Focus Goal** ring, productivity trend, peak hours, weekly recap, per-app breakdown, and a minute-level timeline. |
+| **Focus** | Continuous-focus streaks (broken by gaps over 10 min), a daily goal, and a focus-streak counter. |
+| **Wellness** | Configurable **move** and **screen** breaks with on-screen countdowns that auto-finish; ergonomics tips. |
+| **Idle review** | Returned after 10+ min at your desk? Ticker asks if it was a meeting → count as productive, or delete it. |
+| **Screen timeline** | *(optional, off by default)* a small screen thumbnail every N minutes, on-device only, auto-deleted. |
+| **Export** | Weekly / Monthly **PDF** reports and a **CSV** of all data. |
+| **Menu bar** | A compact panel with a live waveform, focus ring, current app, next-break countdown, and start/pause. |
+
+> **📖 Want to know exactly how each widget decides what it shows?** Read the
+> **[Widget & Metric Reference →](docs/WIDGETS.md)** — it documents every tile,
+> chart, and countdown, and the logic behind each number (active vs. idle, focus
+> streaks, categories, break timers, and more).
+
+---
+
+## Screenshots
+
+<!-- Drop clean captures into docs/screenshots/ and update these. -->
+| Overview | Apps | Timeline |
+|---|---|---|
+| ![Overview](docs/screenshots/overview.png) | ![Apps](docs/screenshots/apps.png) | ![Timeline](docs/screenshots/timeline.png) |
+
+---
+
+## Install
+
+You need **macOS 14+** and Apple's Command Line Tools (`swift`).
+
+```bash
+# 1. Get the code
+git clone https://github.com/ajaysuwalka/ticker-app.git && cd ticker-app
+
+# 2. One-time: install the Swift toolchain if you don't have it
+xcode-select --install
+
+# 3. One-time (recommended): a stable signing identity so macOS remembers
+#    the permissions you grant, even after you rebuild
+./tools/make-signing-cert.sh
+
+# 4. Build and run
+./build.sh && open build/Ticker.app
+```
+
+Ticker appears in your **menu bar** (the pulse-wave icon) and opens its dashboard.
+
+**Full walkthrough & troubleshooting:** [INSTALL.md](INSTALL.md) ·
+**How it's built:** [GUIDE.md](GUIDE.md) ·
+**Code layout:** [ARCHITECTURE.md](ARCHITECTURE.md)
+
+> Prebuilt `.app` zips are attached to each [Release](https://github.com/ajaysuwalka/ticker-app/releases),
+> but building from source is recommended — a downloaded, non-notarized app is
+> quarantined by Gatekeeper, while a locally built one is trusted.
+
+### Permissions
+
+Ticker works immediately for app usage and idle/active time. Two macOS
+permissions unlock more, requested from within the app:
+
+| Permission | Unlocks | Required? |
+|---|---|---|
+| **Accessibility** | Keystroke/click counts, window titles (tab/project) | Recommended |
+| **Screen Recording** | The optional per-interval screen thumbnails | Only for Screen Timeline |
+
+After granting either, **quit and reopen Ticker** (macOS applies the grant on the
+next launch — the signing cert from step 3 means you only do this once).
+
+---
+
+## Privacy
+
+Everything is stored locally in `~/Library/Application Support/Ticker/`
+(`data.json` + a `shots/` thumbnail folder). Nothing leaves your Mac. Ticker
+counts *how many* keys/clicks you make — never *which* keys or *what* you type.
+Screenshots are off unless you turn them on, and are auto-deleted.
+
+To wipe data: **Settings → Data → Clear all tracked data**, or delete the folder.
+
+---
+
+## Build, test & contribute
+
+Ticker is a SwiftPM package. CI runs on every PR (build, tests, SwiftLint,
+CodeQL) — see [`.github/workflows`](.github/workflows).
+
+```bash
+swift build -c release              # compile
+swift test                          # unit tests (needs full Xcode)
+swift test --enable-code-coverage   # + coverage (CI reports this)
+swiftlint                           # lint
+./build.sh                          # assemble + sign Ticker.app
+```
+
+CI measures line coverage with `llvm-cov`, uploads a `coverage.lcov` artifact,
+and (optionally) pushes to Codecov — see [`ci.yml`](.github/workflows/ci.yml).
+
+Contributions are very welcome — start with [CONTRIBUTING.md](CONTRIBUTING.md)
+and the [`good first issue`](https://github.com/ajaysuwalka/ticker-app/labels/good%20first%20issue)
+label. Please keep the **privacy promise**: no network calls, ever.
+
+---
+
+## Roadmap
+
+- [ ] Homebrew cask (`brew install --cask ticker`)
+- [ ] Notarized signed release (double-click install, no Gatekeeper prompt)
+- [ ] Configurable dashboard layout
+- [ ] More app-category heuristics
+- [ ] Localizations
+
+Have an idea? [Open a discussion](https://github.com/ajaysuwalka/ticker-app/discussions).
+
+---
+
+## Acknowledgments
+
+Built by **Ajay Suwalka**, and **created with the tools provided by
+[Testlio](https://testlio.com)** (including Claude Code) as part of day-to-day
+engineering. Huge thanks to Testlio for the developer tooling that made building
+Ticker possible.
+
+> This is a personal open-source project and is **not an official Testlio
+> product**. "Testlio" and the Testlio logo are trademarks of Testlio, used here
+> only to credit the tooling.
+
+## License
+
+[MIT](LICENSE) © 2026 Ajay Suwalka
