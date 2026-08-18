@@ -1,0 +1,22 @@
+title: Ticker
+description: >-
+  The private, native macOS time tracker — focus, insights, and healthy-work
+  breaks, 100% on your Mac. A free, open-source alternative to RescueTime,
+  Timing, Rize, and ActivityWatch.
+remote_theme: just-the-docs/just-the-docs
+url: https://ajaysuwalka.github.io
+baseurl: /ticker-app
+color_scheme: dark
+
+# Top-right auxiliary links
+aux_links:
+  "⬇️ Download": "https://github.com/ajaysuwalka/ticker-app/releases/latest/download/Ticker-macOS.dmg"
+  "GitHub": "https://github.com/ajaysuwalka/ticker-app"
+aux_links_new_tab: true
+
+# Only build the site pages (skip the screenshots helper readme).
+exclude:
+  - screenshots/README.md
+
+plugins:
+  - jekyll-remote-theme

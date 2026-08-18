@@ -1,3 +1,8 @@
+---
+title: Widget Reference
+nav_order: 2
+---
+
 # Ticker — Widget & Metric Reference
 
 This document explains **every widget in Ticker and exactly how it decides what

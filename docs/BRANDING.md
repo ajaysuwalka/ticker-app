@@ -1,3 +1,8 @@
+---
+title: Brand Guide
+nav_order: 4
+---
+
 # Ticker — Brand Guide
 
 A tiny, opinionated brand system so every screenshot, badge, and page reads as

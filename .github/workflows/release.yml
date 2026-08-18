@@ -82,7 +82,10 @@ jobs:
           rm -f AuthKey.p8
           xcrun stapler staple "$DMG"
           spctl -a -vvv -t install "$DMG" || true
-          shasum -a 256 "$DMG" > checksums.txt
+          # Stable-named copy so this URL always points to the newest build:
+          #   github.com/ajaysuwalka/ticker-app/releases/latest/download/Ticker-macOS.dmg
+          cp "$DMG" "Ticker-macOS.dmg"
+          shasum -a 256 "$DMG" "Ticker-macOS.dmg" > checksums.txt
 
       # ---- Unsigned fallback (no secrets: forks, or before you enroll) ----
       - name: Package unsigned artifacts
@@ -118,6 +121,7 @@ jobs:
       # it). Skipped when the signed DMG or the token is absent.
       - name: Update Homebrew cask
         if: env.MACOS_CERT_P12 != '' && env.CASK_PUSH_TOKEN != ''
+        continue-on-error: true   # a cask hiccup must never fail the release
         run: |
           set -euo pipefail
           VERSION="${GITHUB_REF_NAME#v}"

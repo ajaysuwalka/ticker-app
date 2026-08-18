@@ -1,3 +1,8 @@
+---
+title: Distribution & Releases
+nav_order: 3
+---
+
 # Distributing Ticker
 
 Ticker is distributed **outside the Mac App Store**, signed with a **Developer
