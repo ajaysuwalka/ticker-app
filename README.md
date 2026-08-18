@@ -19,12 +19,18 @@ ActivityWatch** for macOS — no cloud, no account, no telemetry.
 ![Made with Swift](https://img.shields.io/badge/Swift-SwiftUI-orange?logo=swift&logoColor=white)
 [![PRs welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md)
 
-### [⬇️ Download for macOS](https://github.com/ajaysuwalka/ticker-app/releases/latest/download/Ticker-macOS.dmg)
+<br>
 
-**Universal** (Apple Silicon + Intel) · signed & notarized · always the latest release.
-Or [browse all releases](https://github.com/ajaysuwalka/ticker-app/releases/latest) · [`brew install`](#install).
+<a href="https://github.com/ajaysuwalka/ticker-app/releases/latest/download/Ticker-macOS.dmg">
+  <img alt="Download Ticker for macOS" height="54"
+       src="https://img.shields.io/badge/%20Download%20for%20macOS-Universal%20DMG-2ea44f?style=for-the-badge&logo=apple&logoColor=white">
+</a>
 
-<img src="docs/screenshots/dashboard.png" alt="Ticker dashboard" width="820">
+<sub>Apple Silicon + Intel · signed &amp; notarized · macOS 14+ &nbsp;·&nbsp; or `brew install --cask ticker` &nbsp;·&nbsp; [all releases](https://github.com/ajaysuwalka/ticker-app/releases)</sub>
+
+<br><br>
+
+<img src="docs/screenshots/dashboard.png" alt="Ticker dashboard" width="860">
 
 </div>
 

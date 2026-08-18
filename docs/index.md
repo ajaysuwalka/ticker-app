@@ -11,11 +11,18 @@ The private, native **macOS** time tracker — focus, insights, and healthy-work
 breaks, **100% on your Mac**. Nothing is ever uploaded.
 {: .fs-6 .fw-300 }
 
-[⬇️ Download for macOS](https://github.com/ajaysuwalka/ticker-app/releases/latest/download/Ticker-macOS.dmg){: .btn .btn-blue .fs-5 .mb-4 .mb-md-0 .mr-2 }
-[View on GitHub](https://github.com/ajaysuwalka/ticker-app){: .btn .fs-5 .mb-4 .mb-md-0 }
+<p>
+  <a href="https://github.com/ajaysuwalka/ticker-app/releases/latest/download/Ticker-macOS.dmg">
+    <img alt="Download Ticker for macOS" height="56"
+         src="https://img.shields.io/badge/%20Download%20for%20macOS-Universal%20DMG-2ea44f?style=for-the-badge&logo=apple&logoColor=white">
+  </a>
+</p>
 
 Universal (Apple Silicon + Intel) · signed & notarized · macOS 14+.
 Prefer Homebrew? `brew tap ajaysuwalka/ticker https://github.com/ajaysuwalka/ticker-app && brew install --cask ticker`
+{: .fs-3 }
+
+[View on GitHub](https://github.com/ajaysuwalka/ticker-app){: .btn .fs-4 }
 
 ---
 

@@ -1,6 +1,6 @@
 cask "ticker" do
-  version "1.0.2"
-  sha256 "994e8ff6ac12441879af4d0d3438ee1ffd47471ad5686e3be0b0db73fe49893b"
+  version "1.0.4"
+  sha256 "6f4809c034c90037e4552d031acc99696658ec64f88cdad37905e92d640cb095"
 
   url "https://github.com/ajaysuwalka/ticker-app/releases/download/v#{version}/Ticker-#{version}.dmg",
       verified: "github.com/ajaysuwalka/ticker-app/"
