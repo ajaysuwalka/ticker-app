@@ -28,11 +28,17 @@ jobs:
     steps:
       - uses: actions/checkout@v7
 
+      - name: Select latest Xcode (needed for the universal --arch build)
+        run: |
+          latest="$(ls -d /Applications/Xcode*.app 2>/dev/null | sort -V | tail -1)"
+          if [ -n "$latest" ]; then sudo xcode-select -s "$latest"; fi
+          xcode-select -p
+
       - name: Swift version
         run: swift --version
 
-      - name: Build the app
-        run: ./build.sh          # ad-hoc; re-signed with Developer ID below if configured
+      - name: Build the app (universal: arm64 + x86_64)
+        run: UNIVERSAL=1 ./build.sh   # ad-hoc; re-signed with Developer ID below if configured
 
       # ---- Signed + notarized path (only when signing secrets are present) ----
       - name: Import Developer ID certificate

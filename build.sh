@@ -7,9 +7,18 @@ APP="Ticker"
 BUNDLE="build/${APP}.app"
 CONFIG="${1:-release}"
 
-echo ">> Compiling (${CONFIG})..."
-swift build -c "${CONFIG}"
-BIN="$(swift build -c "${CONFIG}" --show-bin-path)/${APP}"
+# UNIVERSAL=1 builds a fat arm64 + x86_64 binary (Apple Silicon *and* Intel).
+# Releases set this; plain dev builds stay host-arch for speed. The cross-arch
+# slice requires full Xcode (SwiftPM's --arch uses xcbuild) — CI has it.
+ARCH_FLAGS=""
+if [ "${UNIVERSAL:-0}" = "1" ]; then
+    ARCH_FLAGS="--arch arm64 --arch x86_64"
+    echo ">> Compiling UNIVERSAL (arm64 + x86_64, ${CONFIG})..."
+else
+    echo ">> Compiling (${CONFIG})..."
+fi
+swift build -c "${CONFIG}" ${ARCH_FLAGS}
+BIN="$(swift build -c "${CONFIG}" ${ARCH_FLAGS} --show-bin-path)/${APP}"
 
 echo ">> Assembling ${BUNDLE} ..."
 rm -rf "${BUNDLE}"
@@ -18,6 +27,7 @@ rm -rf "${BUNDLE}"
 rm -rf "build/Pulse.app"
 mkdir -p "${BUNDLE}/Contents/MacOS" "${BUNDLE}/Contents/Resources"
 cp "${BIN}" "${BUNDLE}/Contents/MacOS/${APP}"
+echo ">> Architectures: $(lipo -archs "${BUNDLE}/Contents/MacOS/${APP}")"
 cp Info.plist "${BUNDLE}/Contents/Info.plist"
 if [ -f Resources/Ticker.icns ]; then
     cp Resources/Ticker.icns "${BUNDLE}/Contents/Resources/Ticker.icns"

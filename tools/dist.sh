@@ -21,9 +21,10 @@ NOTARY_PROFILE="${NOTARY_PROFILE:-TickerNotary}"
 
 : "${DEVELOPER_ID:?Set DEVELOPER_ID to your 'Developer ID Application: NAME (TEAMID)' identity (see: security find-identity -v -p codesigning)}"
 
-echo ">> [1/6] Building release..."
-swift build -c release
-BIN="$(swift build -c release --show-bin-path)/${APP}"
+echo ">> [1/6] Building release (universal: arm64 + x86_64)..."
+ARCHS="--arch arm64 --arch x86_64"
+swift build -c release ${ARCHS}
+BIN="$(swift build -c release ${ARCHS} --show-bin-path)/${APP}"
 
 echo ">> [2/6] Assembling ${BUNDLE}..."
 rm -rf "${BUNDLE}" "build/Pulse.app"
