@@ -25,7 +25,7 @@ final class Tracker: ObservableObject {
     private var timer: Timer?
     private var pausedTimer: Timer?
     private var nextPausedReminder = Date.distantFuture
-    private static let pausedReminderInterval: TimeInterval = 10 * 60   // remind every 10 min
+    private static let pausedReminderInterval: TimeInterval = 60 * 60   // remind every hour
     private var started = false
     private var signalSource: DispatchSourceSignal?
     private var previousBundleId: String?
@@ -107,7 +107,9 @@ final class Tracker: ObservableObject {
 
     // MARK: - Paused reminder
 
-    /// While paused, remind the user to resume every 10 minutes (snoozeable).
+    private static let firstReminderAfterWake: TimeInterval = 5 * 60   // ≤5 min after opening the Mac
+
+    /// While tracking is off, remind the user hourly to start it (snoozeable).
     private func startPausedReminders() {
         pausedTimer?.invalidate()
         pausedReminderActive = false
@@ -125,11 +127,21 @@ final class Tracker: ObservableObject {
         pausedReminderActive = false
     }
 
+    /// On waking the Mac, if tracking is off, bring the first reminder forward so
+    /// it fires within ~5 minutes of opening the lid (then hourly). Catches the
+    /// case where you closed the laptop with tracking paused and forgot to resume.
+    private func primePausedReminderOnWake() {
+        guard !isTracking else { return }
+        let soon = Date().addingTimeInterval(Self.firstReminderAfterWake)
+        nextPausedReminder = min(nextPausedReminder, soon)
+        pausedReminderActive = false
+    }
+
     private func checkPausedReminder() {
         guard !isTracking, Date() >= nextPausedReminder else { return }
         pausedReminderActive = true
         Notifier.trackingPaused()
-        nextPausedReminder = Date().addingTimeInterval(Self.pausedReminderInterval)   // re-remind in 10 min
+        nextPausedReminder = Date().addingTimeInterval(Self.pausedReminderInterval)   // re-remind in an hour
     }
 
     /// Dismiss the resume reminder for a while (30 / 60 / 120 minutes).
@@ -173,7 +185,10 @@ final class Tracker: ObservableObject {
             MainActor.assumeIsolated { self?.setAway(system: true) }
         }
         workspace.addObserver(forName: NSWorkspace.didWakeNotification, object: nil, queue: .main) { [weak self] _ in
-            MainActor.assumeIsolated { self?.setAway(system: false) }
+            MainActor.assumeIsolated {
+                self?.setAway(system: false)
+                self?.primePausedReminderOnWake()   // first "start tracking" nudge ≤5 min after opening
+            }
         }
 
         // SIGTERM: how the OS terminates apps on logout/restart, and what `kill`

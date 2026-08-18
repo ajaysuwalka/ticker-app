@@ -10,6 +10,7 @@ struct TickerApp: App {
     @StateObject private var breakPresenter: BreakPresenter
     @StateObject private var pausedPresenter: PausedReminderPresenter
     @StateObject private var idlePresenter: IdleReviewPresenter
+    @StateObject private var notifications: NotificationCoordinator
 
     init() {
         let store = TickerStore()
@@ -22,6 +23,7 @@ struct TickerApp: App {
         _breakPresenter = StateObject(wrappedValue: BreakPresenter(breaks: breaks, store: store))
         _pausedPresenter = StateObject(wrappedValue: PausedReminderPresenter(tracker: tracker))
         _idlePresenter = StateObject(wrappedValue: IdleReviewPresenter(tracker: tracker))
+        _notifications = StateObject(wrappedValue: NotificationCoordinator(tracker: tracker))
     }
 
     var body: some Scene {
@@ -69,5 +71,13 @@ struct TickerApp: App {
         breakPresenter.start()
         pausedPresenter.start()
         idlePresenter.start()
+        notifications.start()
+
+        // Run at login by default — set up once on first launch so the app is
+        // there when you sign in. Users can turn it off in Settings → General.
+        if !UserDefaults.standard.bool(forKey: "didConfigureLoginItem") {
+            LoginItem.set(true)
+            UserDefaults.standard.set(true, forKey: "didConfigureLoginItem")
+        }
     }
 }
