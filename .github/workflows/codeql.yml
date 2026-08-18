@@ -8,6 +8,11 @@ on:
   schedule:
     - cron: '27 3 * * 1'   # weekly, Mondays
 
+# Cancel an in-progress run when a newer commit lands on the same branch/PR.
+concurrency:
+  group: codeql-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   analyze:
     name: Analyze (Swift)
