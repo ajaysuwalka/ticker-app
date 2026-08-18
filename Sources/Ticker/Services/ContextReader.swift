@@ -14,7 +14,8 @@ enum ContextReader {
         var windowRef: CFTypeRef?
         guard AXUIElementCopyAttributeValue(axApp, kAXFocusedWindowAttribute as CFString, &windowRef) == .success,
               let windowRef, CFGetTypeID(windowRef) == AXUIElementGetTypeID() else { return nil }
-        let window = windowRef as! AXUIElement
+        // Safe: we just checked CFGetTypeID matches AXUIElement above.
+        let window = windowRef as! AXUIElement   // swiftlint:disable:this force_cast
 
         var titleRef: CFTypeRef?
         guard AXUIElementCopyAttributeValue(window, kAXTitleAttribute as CFString, &titleRef) == .success,

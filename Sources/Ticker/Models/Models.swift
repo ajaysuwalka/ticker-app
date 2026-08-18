@@ -303,7 +303,11 @@ struct PersistedData: Codable {
 // extension so the memberwise initializer is preserved for saving.
 extension PersistedData {
     enum CodingKeys: String, CodingKey {
-        case records, appNames, categories, idleThreshold, dailyGoalMinutes, weeklyGoalHours, notifyOnGoal, captureScreenshots, captureIntervalMinutes, screenshotRetentionDays, breakRemindersEnabled, moveBreakMinutes, screenBreakMinutes, moveBreakDurationMinutes, screenBreakDurationMinutes, minBreakGapMinutes, breakOverlayAllScreens
+        case records, appNames, categories, idleThreshold, dailyGoalMinutes, weeklyGoalHours
+        case notifyOnGoal, captureScreenshots, captureIntervalMinutes, screenshotRetentionDays
+        case breakRemindersEnabled, moveBreakMinutes, screenBreakMinutes
+        case moveBreakDurationMinutes, screenBreakDurationMinutes, minBreakGapMinutes
+        case breakOverlayAllScreens
     }
 
     init(from decoder: Decoder) throws {

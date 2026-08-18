@@ -208,7 +208,9 @@ struct GeneralSettings: View {
                         Permissions.openScreenRecordingSettings()
                     }
                 }
-                Text("Saves a small thumbnail of your screen on the interval above while you're active — kept only on this Mac and auto-deleted on the schedule above. Capture starts once you grant permission and reopen Ticker. Shown as the Screen Timeline on the dashboard's Day view.")
+                Text("Saves a small thumbnail of your screen on the interval above while you're active — "
+                     + "kept only on this Mac and auto-deleted on the schedule above. Capture starts once "
+                     + "you grant permission and reopen Ticker. Shown as the Screen Timeline on the Day view.")
                     .font(.caption).foregroundStyle(.secondary)
                 Button(role: .destructive) {
                     store.clearScreenshots()
@@ -218,7 +220,9 @@ struct GeneralSettings: View {
             }
 
             Section("Privacy") {
-                Label("Ticker records the active app and its window title (e.g. browser tab or project) and counts how many keys/clicks you make — never which keys or what you type. Screenshots are off unless you turn on the Screen Timeline above. Everything stays on this Mac.",
+                Label("Ticker records the active app and its window title (e.g. browser tab or project) and "
+                      + "counts how many keys/clicks you make — never which keys or what you type. Screenshots "
+                      + "are off unless you turn on the Screen Timeline above. Everything stays on this Mac.",
                       systemImage: "hand.raised.fill")
                     .font(.caption)
                     .foregroundStyle(.secondary)
@@ -301,7 +305,9 @@ struct WellnessSettings: View {
                     get: { store.breakOverlayAllScreens },
                     set: { store.breakOverlayAllScreens = $0 }))
                     .disabled(!store.breakRemindersEnabled)
-                Text("Move breaks are 1–2 minutes; screen breaks are 5–10 minutes. Timers count only active time and pause when you step away — a long enough break counts as taken. With “over all apps” off, the reminder appears only inside Ticker.")
+                Text("Move breaks are 1–2 minutes; screen breaks are 5–10 minutes. Timers count only active "
+                     + "time and pause when you step away — a long enough break counts as taken. With “over "
+                     + "all apps” off, the reminder appears only inside Ticker.")
                     .font(.caption).foregroundStyle(.secondary)
             }
 
