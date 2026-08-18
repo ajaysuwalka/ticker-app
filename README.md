@@ -75,32 +75,40 @@ is the one that's **native, beautiful, and 100% on-device** — and it folds
 
 ## Install
 
-You need **macOS 14+** and Apple's Command Line Tools (`swift`).
+**macOS 14+.** Ticker is a **universal binary** (Apple Silicon + Intel).
+
+### Homebrew (easiest)
 
 ```bash
-# 1. Get the code
+brew tap ajaysuwalka/ticker https://github.com/ajaysuwalka/ticker-app
+brew install --cask ticker
+```
+
+### Direct download
+
+Grab the latest **[notarized `.dmg`](https://github.com/ajaysuwalka/ticker-app/releases/latest)**,
+open it, and drag Ticker to Applications — it's signed with a Developer ID and
+notarized by Apple, so there's no "unidentified developer" wall.
+
+### Build from source
+
+```bash
 git clone https://github.com/ajaysuwalka/ticker-app.git && cd ticker-app
-
-# 2. One-time: install the Swift toolchain if you don't have it
-xcode-select --install
-
-# 3. One-time (recommended): a stable signing identity so macOS remembers
-#    the permissions you grant, even after you rebuild
-./tools/make-signing-cert.sh
-
-# 4. Build and run
+xcode-select --install                 # one-time, if you don't have Swift
+./tools/make-signing-cert.sh           # one-time: stable permissions across rebuilds
 ./build.sh && open build/Ticker.app
 ```
 
 Ticker appears in your **menu bar** (the pulse-wave icon) and opens its dashboard.
+**More:** [INSTALL.md](INSTALL.md) · [GUIDE.md](GUIDE.md) · [ARCHITECTURE.md](ARCHITECTURE.md)
 
-**Full walkthrough & troubleshooting:** [INSTALL.md](INSTALL.md) ·
-**How it's built:** [GUIDE.md](GUIDE.md) ·
-**Code layout:** [ARCHITECTURE.md](ARCHITECTURE.md)
+## Staying up to date
 
-> Prebuilt `.app` zips are attached to each [Release](https://github.com/ajaysuwalka/ticker-app/releases),
-> but building from source is recommended — a downloaded, non-notarized app is
-> quarantined by Gatekeeper, while a locally built one is trusted.
+- **Homebrew:** `brew upgrade --cask ticker`.
+- **In-app:** Ticker shows a banner when a newer version is out (its only network
+  request — a version check to GitHub; no data is sent).
+- **Get notified:** on this repo, click **Watch → Custom → Releases** for an email
+  on every release.
 
 ### Permissions
 
@@ -156,8 +164,9 @@ label. Please keep the **privacy promise**: no network calls, ever.
 
 ## Roadmap
 
-- [ ] Homebrew cask (`brew install --cask ticker`)
-- [ ] Notarized signed release (double-click install, no Gatekeeper prompt)
+- [x] Notarized, universal (Apple Silicon + Intel) signed releases
+- [x] Homebrew cask
+- [x] In-app update notifications
 - [ ] Configurable dashboard layout
 - [ ] More app-category heuristics
 - [ ] Localizations
