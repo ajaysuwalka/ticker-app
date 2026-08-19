@@ -104,7 +104,7 @@ struct ReportView: View {
                 HStack(spacing: 8) {
                     Image(systemName: "waveform.path.ecg").font(.system(size: 14, weight: .bold))
                         .foregroundStyle(brand)
-                    Text("PULSE").font(.system(size: 13, weight: .heavy, design: .rounded)).tracking(2)
+                    Text("TICKER").font(.system(size: 13, weight: .heavy, design: .rounded)).tracking(2)
                 }
                 Text(title).font(.system(size: 30, weight: .bold, design: .rounded))
                 Text(rangeLabel).font(.system(size: 14)).foregroundStyle(sub)
@@ -133,7 +133,7 @@ struct ReportView: View {
     private func statTile(_ label: String, _ value: String) -> some View {
         VStack(alignment: .leading, spacing: 6) {
             Text(value).font(.system(size: 22, weight: .bold, design: .rounded))
-            Text(label.uppercased()).font(.system(size: 10, weight: .semibold)).foregroundStyle(sub)
+            Text(tr(label).uppercased()).font(.system(size: 10, weight: .semibold)).foregroundStyle(sub)
         }
         .frame(maxWidth: .infinity, alignment: .leading)
         .padding(14)
@@ -240,7 +240,7 @@ struct ReportView: View {
     // MARK: Bits
 
     private func sectionTitle(_ text: String) -> some View {
-        Text(text.uppercased())
+        Text(tr(text).uppercased())
             .font(.system(size: 12, weight: .bold)).tracking(0.6)
             .foregroundStyle(sub)
     }

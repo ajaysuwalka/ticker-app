@@ -50,11 +50,14 @@ struct BreakOverlayView: View {
             banner
             VStack(alignment: .leading, spacing: 16) {
                 infoRow(icon: "clock.badge.checkmark",
-                        title: "Why now",
-                        detail: "\(kind.reason) It's been about \(intervalMinutes) minutes.")
+                        title: tr("Why now"),
+                        detail: String(format: tr("%@ It's been about %d minutes."),
+                                       kind.reason, intervalMinutes))
                 infoRow(icon: "timer",
-                        title: "How long",
-                        detail: "Take \(kind.recommendedDuration). The timer below counts down and finishes the break on its own — or step away and it's done.")
+                        title: tr("How long"),
+                        detail: String(format: tr("Take %@. The timer below counts down and finishes the "
+                                                  + "break on its own — or step away and it's done."),
+                                       kind.recommendedDuration))
 
                 VStack(alignment: .leading, spacing: 9) {
                     Text("SUGGESTIONS")

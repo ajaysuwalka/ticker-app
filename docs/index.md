@@ -61,6 +61,7 @@ A free, open-source, on-device **alternative to RescueTime, Timing, Rize, and Ac
 - [Widget & Metric Reference](WIDGETS.md) — exactly how every number is computed.
 - [Distribution & Releases](DISTRIBUTION.md) — how notarized DMGs are built and shipped.
 - [Brand Guide](BRANDING.md).
+- [Translating Ticker](TRANSLATING.md) — available in English, Spanish, French & German; add your language.
 
 ---
 

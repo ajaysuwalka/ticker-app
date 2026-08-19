@@ -33,6 +33,13 @@ if [ -f Resources/Ticker.icns ]; then
     cp Resources/Ticker.icns "${BUNDLE}/Contents/Resources/Ticker.icns"
 fi
 
+# Localizations: copy every Resources/<lang>.lproj into the bundle so SwiftUI's
+# Text/Toggle/Label (which look up Bundle.main) find the translated strings.
+for lproj in Resources/*.lproj; do
+    [ -d "${lproj}" ] || continue
+    cp -R "${lproj}" "${BUNDLE}/Contents/Resources/"
+done
+
 # Prefer a STABLE self-signed identity so macOS keeps Accessibility / Screen
 # Recording permission across rebuilds (ad-hoc signatures change every build,
 # which makes macOS forget the grant and re-prompt). Set PULSE_SIGN_IDENTITY, or

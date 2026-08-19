@@ -133,8 +133,8 @@ struct LiveStatusView: View {
         return tracker.isActive ? .green : .secondary
     }
     private var status: String {
-        guard tracker.isTracking else { return "Paused" }
-        return tracker.isActive ? "Active" : "Idle"
+        guard tracker.isTracking else { return tr("Paused") }
+        return tracker.isActive ? tr("Active") : tr("Idle")
     }
 
     var body: some View {
@@ -183,7 +183,7 @@ struct SidebarBreaksView: View {
             Text(kind.shortLabel)
                 .font(.system(size: 12, weight: .medium)).foregroundStyle(.secondary)
             Spacer(minLength: 0)
-            Text(seconds <= 0 ? "now" : Self.format(seconds))
+            Text(seconds <= 0 ? tr("now") : Self.format(seconds))
                 .font(.system(size: 12, weight: .semibold)).monospacedDigit()
                 .foregroundStyle(tint)
         }

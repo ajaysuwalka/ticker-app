@@ -9,8 +9,8 @@ enum BreakKind: String, Identifiable {
 
     var title: String {
         switch self {
-        case .move: return "Time to move"
-        case .screen: return "Screen break"
+        case .move: return tr("Time to move")
+        case .screen: return tr("Screen break")
         }
     }
 
@@ -24,31 +24,31 @@ enum BreakKind: String, Identifiable {
     /// Short label for compact readouts (menu bar, dashboard next-break pill).
     var shortLabel: String {
         switch self {
-        case .move: return "Move"
-        case .screen: return "Eyes"
+        case .move: return tr("Move")
+        case .screen: return tr("Eyes")
         }
     }
 
     var headline: String {
         switch self {
-        case .move: return "Stand up and move for 1–2 minutes"
-        case .screen: return "Take a 5–10 minute break from the screen"
+        case .move: return tr("Stand up and move for 1–2 minutes")
+        case .screen: return tr("Take a 5–10 minute break from the screen")
         }
     }
 
     /// Recommended break length.
     var recommendedDuration: String {
         switch self {
-        case .move: return "1–2 minutes"
-        case .screen: return "5–10 minutes"
+        case .move: return tr("1–2 minutes")
+        case .screen: return tr("5–10 minutes")
         }
     }
 
     /// Short reason shown to the user.
     var reason: String {
         switch self {
-        case .move: return "You've been sitting and working for a while."
-        case .screen: return "Your eyes have been on the screen for a while."
+        case .move: return tr("You've been sitting and working for a while.")
+        case .screen: return tr("Your eyes have been on the screen for a while.")
         }
     }
 
@@ -56,15 +56,15 @@ enum BreakKind: String, Identifiable {
         switch self {
         case .move:
             return [
-                "Stand up and stretch — roll your shoulders and neck gently.",
-                "Walk around for 1–2 minutes.",
-                "Reset your posture when you sit back down."
+                tr("Stand up and stretch — roll your shoulders and neck gently."),
+                tr("Walk around for 1–2 minutes."),
+                tr("Reset your posture when you sit back down.")
             ]
         case .screen:
             return [
-                "Look away and focus on something in the distance (20-20-20).",
-                "Rest your eyes for 5–10 minutes.",
-                "Don't use other electronic devices while resting."
+                tr("Look away and focus on something in the distance (20-20-20)."),
+                tr("Rest your eyes for 5–10 minutes."),
+                tr("Don't use other electronic devices while resting.")
             ]
         }
     }
@@ -72,16 +72,18 @@ enum BreakKind: String, Identifiable {
 
 /// Static ergonomic guidance shown in Settings → Wellness.
 enum Wellness {
-    static let ergonomics: [String] = [
-        "Keep your feet flat on the ground and your back supported by the chair.",
-        "Center the keyboard directly in front of you.",
-        "Center the screen above the keyboard.",
-        "Prefer a desktop computer when you can.",
-        "Keep the screen about 40–70 cm from your eyes.",
-        "Arrange lighting and windows so they don't cause glare.",
-        "Every 30 minutes, stand up and move for 1–2 minutes.",
-        "Every 60 minutes, take a 5–10 minute break from the screen.",
-        "Don't use other electronic devices while resting.",
-        "To avoid eye fatigue, look away and focus on something in the distance."
-    ]
+    static var ergonomics: [String] {
+        [
+            tr("Keep your feet flat on the ground and your back supported by the chair."),
+            tr("Center the keyboard directly in front of you."),
+            tr("Center the screen above the keyboard."),
+            tr("Prefer a desktop computer when you can."),
+            tr("Keep the screen about 40–70 cm from your eyes."),
+            tr("Arrange lighting and windows so they don't cause glare."),
+            tr("Every 30 minutes, stand up and move for 1–2 minutes."),
+            tr("Every 60 minutes, take a 5–10 minute break from the screen."),
+            tr("Don't use other electronic devices while resting."),
+            tr("To avoid eye fatigue, look away and focus on something in the distance.")
+        ]
+    }
 }

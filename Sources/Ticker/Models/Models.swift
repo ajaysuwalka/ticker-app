@@ -19,10 +19,10 @@ enum AppCategory: String, Codable, CaseIterable, Identifiable {
 
     var title: String {
         switch self {
-        case .productive: return "Productive"
-        case .neutral: return "Neutral"
-        case .distracting: return "Distracting"
-        case .excluded: return "Excluded"
+        case .productive: return tr("Productive")
+        case .neutral: return tr("Neutral")
+        case .distracting: return tr("Distracting")
+        case .excluded: return tr("Excluded")
         }
     }
 
@@ -186,9 +186,9 @@ enum Timescale: String, CaseIterable, Identifiable {
 
     var title: String {
         switch self {
-        case .day: return "Day"
-        case .week: return "Week"
-        case .month: return "Month"
+        case .day: return tr("Day")
+        case .week: return tr("Week")
+        case .month: return tr("Month")
         }
     }
 
@@ -276,6 +276,55 @@ struct WeeklyRecap {
     var hasData: Bool { productiveSeconds > 0 || previousProductiveSeconds > 0 }
 }
 
+// MARK: - Dashboard layout
+
+/// A configurable card on the Overview screen. The raw value is the stable key
+/// persisted in `PersistedData.hiddenDashboardWidgets` and used to reorder cards,
+/// so it must never change once shipped.
+enum DashboardWidget: String, CaseIterable, Codable, Identifiable {
+    // Declaration order is the default Overview layout. Weekly hours leads, then
+    // the stat tiles, then the side-by-side focus/activity/trend row.
+    case weeklyHours
+    case stats
+    case focusGoal
+    case activity
+    case trend
+
+    var id: String { rawValue }
+
+    /// Human-readable name shown in the layout editor.
+    var title: String {
+        switch self {
+        case .stats: return tr("Stat tiles")
+        case .focusGoal: return tr("Focus goal")
+        case .activity: return tr("Activity graph")
+        case .trend: return tr("Productivity trend")
+        case .weeklyHours: return tr("Weekly hours")
+        }
+    }
+
+    /// One-line description shown under the title in the layout editor.
+    var blurb: String {
+        switch self {
+        case .stats: return tr("Tracked, focus, keys & clicks at a glance")
+        case .focusGoal: return tr("Daily focus ring and streak")
+        case .activity: return tr("Per-hour activity for the period")
+        case .trend: return tr("Productive vs. distracting over time")
+        case .weeklyHours: return tr("Progress toward your weekly hours goal")
+        }
+    }
+
+    var systemImage: String {
+        switch self {
+        case .stats: return "square.grid.2x2"
+        case .focusGoal: return "target"
+        case .activity: return "waveform.path.ecg"
+        case .trend: return "chart.line.uptrend.xyaxis"
+        case .weeklyHours: return "calendar"
+        }
+    }
+}
+
 // MARK: - Persistence container
 
 struct PersistedData: Codable {
@@ -296,6 +345,14 @@ struct PersistedData: Codable {
     var screenBreakDurationMinutes: Int = 5   // how long the screen break countdown runs
     var minBreakGapMinutes: Int = 30          // minimum active time between any two breaks
     var breakOverlayAllScreens: Bool = true   // float the reminder above all apps
+    // Overview layout: the order cards appear in, and which are hidden. Empty
+    // order means "use the default order"; unknown/new keys are appended.
+    var dashboardWidgetOrder: [String] = []
+    var hiddenDashboardWidgets: [String] = []
+    // Whether the user has hand-customized the layout. Until they do, the app
+    // follows the built-in default order, so shipping a new default order (or a
+    // new card) reaches existing users instead of being frozen at install time.
+    var dashboardLayoutCustomized: Bool = false
 }
 
 // Tolerant decoding: missing keys fall back to defaults instead of throwing, so
@@ -308,6 +365,7 @@ extension PersistedData {
         case breakRemindersEnabled, moveBreakMinutes, screenBreakMinutes
         case moveBreakDurationMinutes, screenBreakDurationMinutes, minBreakGapMinutes
         case breakOverlayAllScreens
+        case dashboardWidgetOrder, hiddenDashboardWidgets, dashboardLayoutCustomized
     }
 
     init(from decoder: Decoder) throws {
@@ -330,6 +388,9 @@ extension PersistedData {
         screenBreakDurationMinutes = try c.decodeIfPresent(Int.self, forKey: .screenBreakDurationMinutes) ?? screenBreakDurationMinutes
         minBreakGapMinutes = try c.decodeIfPresent(Int.self, forKey: .minBreakGapMinutes) ?? minBreakGapMinutes
         breakOverlayAllScreens = try c.decodeIfPresent(Bool.self, forKey: .breakOverlayAllScreens) ?? breakOverlayAllScreens
+        dashboardWidgetOrder = try c.decodeIfPresent([String].self, forKey: .dashboardWidgetOrder) ?? dashboardWidgetOrder
+        hiddenDashboardWidgets = try c.decodeIfPresent([String].self, forKey: .hiddenDashboardWidgets) ?? hiddenDashboardWidgets
+        dashboardLayoutCustomized = try c.decodeIfPresent(Bool.self, forKey: .dashboardLayoutCustomized) ?? dashboardLayoutCustomized
     }
 }
 
