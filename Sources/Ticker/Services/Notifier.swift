@@ -23,7 +23,7 @@ enum Notifier {
     static func registerCategories() {
         guard let center else { return }
         let start = UNNotificationAction(identifier: startTrackingAction,
-                                         title: "Start Tracking",
+                                         title: tr("Start Tracking"),
                                          options: [.foreground])
         let category = UNNotificationCategory(identifier: pausedCategory,
                                               actions: [start],
@@ -35,8 +35,9 @@ enum Notifier {
     static func goalReached(minutes: Int) {
         guard let center else { return }
         let content = UNMutableNotificationContent()
-        content.title = "Focus goal reached 🎯"
-        content.body = "You've hit \(Format.compactDuration(minutes * 60)) of productive time today. Nice work!"
+        content.title = tr("Focus goal reached 🎯")
+        content.body = String(format: tr("You've hit %@ of productive time today. Nice work!"),
+                              Format.compactDuration(minutes * 60))
         content.sound = .default
         let request = UNNotificationRequest(identifier: "ticker.goal.reached", content: content, trigger: nil)
         center.add(request)
@@ -47,8 +48,8 @@ enum Notifier {
     static func trackingPaused() {
         guard let center else { return }
         let content = UNMutableNotificationContent()
-        content.title = "Ticker isn't tracking"
-        content.body = "Tracking is off — you may have forgotten to start it. Your time isn't being counted."
+        content.title = tr("Ticker isn't tracking")
+        content.body = tr("Tracking is off — you may have forgotten to start it. Your time isn't being counted.")
         content.sound = .default
         content.categoryIdentifier = pausedCategory
         let request = UNNotificationRequest(identifier: "ticker.tracking.off", content: content, trigger: nil)

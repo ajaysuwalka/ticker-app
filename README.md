@@ -58,7 +58,7 @@ is the one that's **native, beautiful, and 100% on-device** — and it folds
 |---|---|
 | **Tracking** | Samples the frontmost app every second; counts keys/clicks; reads the active tab/project from the window title; detects idle vs. active vs. away. |
 | **Categories** | Tag apps **Productive / Neutral / Distracting**, or **Excluded** to drop them entirely. Drag between columns. |
-| **Dashboard** | Overview · Insights · Apps · Timeline — stat tiles, activity graph, a **Focus Goal** ring, productivity trend, peak hours, weekly recap, per-app breakdown, and a minute-level timeline. |
+| **Dashboard** | Overview · Insights · Apps · Timeline — stat tiles, activity graph, a **Focus Goal** ring, productivity trend, peak hours, weekly recap, per-app breakdown, and a minute-level timeline. **Reorder or hide** the Overview cards in Settings → Dashboard. |
 | **Focus** | Continuous-focus streaks (broken by gaps over 10 min), a daily goal, and a focus-streak counter. |
 | **Wellness** | Configurable **move** and **screen** breaks with on-screen countdowns that auto-finish; ergonomics tips. |
 | **Idle review** | Returned after 10+ min at your desk? Ticker asks if it was a meeting → count as productive, or delete it. |
@@ -177,9 +177,9 @@ label. Please keep the **privacy promise**: no network calls, ever.
 - [x] Notarized, universal (Apple Silicon + Intel) signed releases
 - [x] Homebrew cask
 - [x] In-app update notifications
-- [ ] Configurable dashboard layout
-- [ ] More app-category heuristics
-- [ ] Localizations
+- [x] Configurable dashboard layout
+- [x] More app-category heuristics
+- [x] Localizations — English, Spanish, French, German ([add a language](docs/TRANSLATING.md))
 
 Have an idea? [Open a discussion](https://github.com/ajaysuwalka/ticker-app/discussions).
 

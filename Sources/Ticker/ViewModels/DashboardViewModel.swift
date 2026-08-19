@@ -103,12 +103,12 @@ final class DashboardViewModel: ObservableObject {
 
     func exportWeeklyPDF() {
         PDFReporter.export(store: store, interval: Timescale.week.interval(containing: anchor),
-                           title: "Weekly Report", monthly: false)
+                           title: tr("Weekly Report"), monthly: false)
     }
 
     func exportMonthlyPDF() {
         PDFReporter.export(store: store, interval: Timescale.month.interval(containing: anchor),
-                           title: "Monthly Report", monthly: true)
+                           title: tr("Monthly Report"), monthly: true)
     }
 
     // MARK: - Snapshot

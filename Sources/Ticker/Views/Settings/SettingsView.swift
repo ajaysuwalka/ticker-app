@@ -2,18 +2,20 @@ import SwiftUI
 
 struct SettingsView: View {
     private enum Tab: String, CaseIterable, Identifiable {
-        case general, wellness, categories
+        case general, dashboard, wellness, categories
         var id: String { rawValue }
         var title: String {
             switch self {
-            case .general: return "General"
-            case .wellness: return "Wellness"
-            case .categories: return "App Categories"
+            case .general: return tr("General")
+            case .dashboard: return tr("Dashboard")
+            case .wellness: return tr("Wellness")
+            case .categories: return tr("App Categories")
             }
         }
         var symbol: String {
             switch self {
             case .general: return "gearshape"
+            case .dashboard: return "rectangle.3.group"
             case .wellness: return "heart.text.square"
             case .categories: return "square.grid.2x2"
             }
@@ -62,6 +64,7 @@ struct SettingsView: View {
     @ViewBuilder private var content: some View {
         switch tab {
         case .general: GeneralSettings()
+        case .dashboard: DashboardSettings()
         case .wellness: WellnessSettings()
         case .categories: CategorySettings()
         }
@@ -208,9 +211,9 @@ struct GeneralSettings: View {
                         Permissions.openScreenRecordingSettings()
                     }
                 }
-                Text("Saves a small thumbnail of your screen on the interval above while you're active — "
+                Text(tr("Saves a small thumbnail of your screen on the interval above while you're active — "
                      + "kept only on this Mac and auto-deleted on the schedule above. Capture starts once "
-                     + "you grant permission and reopen Ticker. Shown as the Screen Timeline on the Day view.")
+                     + "you grant permission and reopen Ticker. Shown as the Screen Timeline on the Day view."))
                     .font(.caption).foregroundStyle(.secondary)
                 Button(role: .destructive) {
                     store.clearScreenshots()
@@ -220,10 +223,10 @@ struct GeneralSettings: View {
             }
 
             Section("Privacy") {
-                Label("Ticker records the active app and its window title (e.g. browser tab or project) and "
+                Label(tr("Ticker records the active app and its window title (e.g. browser tab or project) and "
                       + "counts how many keys/clicks you make — never which keys or what you type. Screenshots "
                       + "are off unless you turn on the Screen Timeline above. Your data stays on this Mac; the "
-                      + "only network request Ticker makes is a version check to GitHub.",
+                      + "only network request Ticker makes is a version check to GitHub."),
                       systemImage: "hand.raised.fill")
                     .font(.caption)
                     .foregroundStyle(.secondary)
@@ -243,6 +246,56 @@ struct GeneralSettings: View {
             }
         }
         .formStyle(.grouped)
+    }
+}
+
+struct DashboardSettings: View {
+    @EnvironmentObject var store: TickerStore
+
+    var body: some View {
+        VStack(spacing: 0) {
+            List {
+                Section {
+                    ForEach(store.dashboardWidgetOrder) { widget in
+                        HStack(spacing: 12) {
+                            Image(systemName: widget.systemImage)
+                                .frame(width: 22)
+                                .foregroundStyle(store.isWidgetVisible(widget) ? Color.accentColor : .secondary)
+                            VStack(alignment: .leading, spacing: 1) {
+                                Text(widget.title)
+                                Text(widget.blurb).font(.caption).foregroundStyle(.secondary)
+                            }
+                            Spacer()
+                            Toggle("", isOn: Binding(
+                                get: { store.isWidgetVisible(widget) },
+                                set: { store.setWidget(widget, visible: $0) }
+                            ))
+                            .labelsHidden()
+                        }
+                        .padding(.vertical, 2)
+                        .opacity(store.isWidgetVisible(widget) ? 1 : 0.5)
+                    }
+                    .onMove { store.moveWidget(fromOffsets: $0, toOffset: $1) }
+                } header: {
+                    Text("Overview cards")
+                } footer: {
+                    Text(tr("Drag the ☰ handle to reorder, and toggle to show or hide each card. "
+                         + "The focus ring, activity graph, and trend sit side-by-side when they're "
+                         + "next to each other. Changes apply to the Overview tab instantly."))
+                        .font(.caption).foregroundStyle(.secondary)
+                }
+            }
+            .listStyle(.inset)
+
+            Divider()
+            HStack {
+                Text("Only the Overview tab is customizable.")
+                    .font(.caption).foregroundStyle(.secondary)
+                Spacer()
+                Button("Reset to default") { store.resetDashboardLayout() }
+            }
+            .padding(12)
+        }
     }
 }
 
@@ -306,9 +359,9 @@ struct WellnessSettings: View {
                     get: { store.breakOverlayAllScreens },
                     set: { store.breakOverlayAllScreens = $0 }))
                     .disabled(!store.breakRemindersEnabled)
-                Text("Move breaks are 1–2 minutes; screen breaks are 5–10 minutes. Timers count only active "
+                Text(tr("Move breaks are 1–2 minutes; screen breaks are 5–10 minutes. Timers count only active "
                      + "time and pause when you step away — a long enough break counts as taken. With “over "
-                     + "all apps” off, the reminder appears only inside Ticker.")
+                     + "all apps” off, the reminder appears only inside Ticker."))
                     .font(.caption).foregroundStyle(.secondary)
             }
 
@@ -360,7 +413,7 @@ struct CategorySettings: View {
                             AppIconView(bundleId: app.bundleId, size: 20, fallbackTint: app.category.color)
                             VStack(alignment: .leading, spacing: 1) {
                                 Text(app.name).lineLimit(1)
-                                Text(Format.duration(app.seconds) + " total")
+                                Text(String(format: tr("%@ total"), Format.duration(app.seconds)))
                                     .font(.caption2).foregroundStyle(.secondary)
                             }
                             Spacer()

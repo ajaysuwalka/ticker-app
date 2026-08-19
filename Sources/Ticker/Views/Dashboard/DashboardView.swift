@@ -9,10 +9,10 @@ enum DashboardSection: String, CaseIterable, Identifiable {
 
     var title: String {
         switch self {
-        case .overview: return "Overview"
-        case .insights: return "Insights"
-        case .apps: return "Apps"
-        case .timeline: return "Timeline"
+        case .overview: return tr("Overview")
+        case .insights: return tr("Insights")
+        case .apps: return tr("Apps")
+        case .timeline: return tr("Timeline")
         }
     }
 
@@ -30,6 +30,7 @@ struct DashboardView: View {
     @EnvironmentObject private var model: DashboardViewModel
     @EnvironmentObject private var breaks: BreakManager
     @EnvironmentObject private var updates: UpdateChecker
+    @EnvironmentObject private var store: TickerStore
 
     @State private var showCalendar = false
     @State private var viewerIndex = 0
@@ -190,15 +191,15 @@ struct DashboardView: View {
     @ViewBuilder private var sectionContent: some View {
         switch section {
         case .overview:
-            VStack(alignment: .leading, spacing: 18) {
-                statsRow
-                HStack(spacing: 18) {
-                    goalCard.frame(width: 280)
-                    activityCard
-                    trendCard
+            if store.visibleDashboardWidgets.isEmpty {
+                emptyState("No cards are enabled. Turn some on in Settings → Dashboard.")
+                    .frame(maxWidth: .infinity, minHeight: 200)
+            } else {
+                VStack(alignment: .leading, spacing: 18) {
+                    ForEach(Array(overviewRows.enumerated()), id: \.offset) { _, row in
+                        overviewRow(row)
+                    }
                 }
-                .frame(height: 290)
-                weeklyGoalCard
             }
         case .insights:
             VStack(alignment: .leading, spacing: 18) {
@@ -221,6 +222,54 @@ struct DashboardView: View {
                         .frame(maxWidth: .infinity, minHeight: 200)
                 }
             }
+        }
+    }
+
+    // MARK: Overview layout
+
+    /// Cards that share the 290-pt side-by-side row; everything else is full width.
+    private static let rowWidgets: Set<DashboardWidget> = [.focusGoal, .activity, .trend]
+
+    /// Group the visible widgets into render rows: runs of adjacent side-by-side
+    /// cards stay together in one HStack; full-width cards each get their own row.
+    private var overviewRows: [[DashboardWidget]] {
+        var rows: [[DashboardWidget]] = []
+        var buffer: [DashboardWidget] = []
+        for widget in store.visibleDashboardWidgets {
+            if Self.rowWidgets.contains(widget) {
+                buffer.append(widget)
+            } else {
+                if !buffer.isEmpty { rows.append(buffer); buffer = [] }
+                rows.append([widget])
+            }
+        }
+        if !buffer.isEmpty { rows.append(buffer) }
+        return rows
+    }
+
+    @ViewBuilder private func overviewRow(_ widgets: [DashboardWidget]) -> some View {
+        if widgets.count == 1, !Self.rowWidgets.contains(widgets[0]) {
+            widgetView(widgets[0])
+        } else {
+            HStack(spacing: 18) {
+                ForEach(widgets) { widget in
+                    // Keep the focus ring compact when it shares the row; let it
+                    // stretch if it's the only card left in the group.
+                    widgetView(widget)
+                        .frame(width: widget == .focusGoal && widgets.count > 1 ? 280 : nil)
+                }
+            }
+            .frame(height: 290)
+        }
+    }
+
+    @ViewBuilder private func widgetView(_ widget: DashboardWidget) -> some View {
+        switch widget {
+        case .stats: statsRow
+        case .focusGoal: goalCard
+        case .activity: activityCard
+        case .trend: trendCard
+        case .weeklyHours: weeklyGoalCard
         }
     }
 
@@ -288,8 +337,8 @@ struct DashboardView: View {
     private var calendarFootnote: String? {
         switch scope {
         case .day: return nil
-        case .week: return "Jumps to the week of the day you pick"
-        case .month: return "Jumps to the month of the day you pick"
+        case .week: return tr("Jumps to the week of the day you pick")
+        case .month: return tr("Jumps to the month of the day you pick")
         }
     }
 
@@ -297,8 +346,8 @@ struct DashboardView: View {
         let cal = Calendar.current
         switch scope {
         case .day:
-            if cal.isDateInToday(anchor) { return "Today" }
-            if cal.isDateInYesterday(anchor) { return "Yesterday" }
+            if cal.isDateInToday(anchor) { return tr("Today") }
+            if cal.isDateInYesterday(anchor) { return tr("Yesterday") }
             return anchor.formatted(.dateTime.weekday(.abbreviated).month(.abbreviated).day())
         case .week:
             let end = cal.date(byAdding: .day, value: -1, to: interval.end) ?? interval.end
@@ -345,24 +394,24 @@ struct DashboardView: View {
                      symbol: "clock.fill", tint: .cyan)
             StatTile(title: "Productive",
                      value: Format.compactDuration(summary.productiveSeconds),
-                     subtitle: "in productive apps",
+                     subtitle: tr("in productive apps"),
                      symbol: "checkmark.seal.fill", tint: AppCategory.productive.color)
             StatTile(title: "Productivity",
                      value: Format.percent(summary.productivity),
-                     subtitle: "of active time",
+                     subtitle: tr("of active time"),
                      symbol: "chart.line.uptrend.xyaxis", tint: .purple)
             StatTile(title: "Interactions",
                      value: "\(summary.keyCount + summary.mouseCount)",
-                     subtitle: "\(summary.keyCount) keys · \(summary.mouseCount) clicks",
+                     subtitle: String(format: tr("%d keys · %d clicks"), summary.keyCount, summary.mouseCount),
                      symbol: "hand.tap.fill", tint: .pink)
         }
     }
 
     private var activeSubtitle: String {
         switch scope {
-        case .day: return "tracked engagement"
-        case .week: return "this week"
-        case .month: return "this month"
+        case .day: return tr("tracked engagement")
+        case .week: return tr("this week")
+        case .month: return tr("this month")
         }
     }
 
@@ -392,7 +441,7 @@ struct DashboardView: View {
         }
     }
 
-    private var activityTitle: String {
+    private var activityTitle: LocalizedStringKey {
         switch scope {
         case .day: return "Activity Over the Day"
         case .week: return "Focus by Day · This Week"
@@ -426,7 +475,7 @@ struct DashboardView: View {
                     goalRow("Goal", Format.compactDuration(goalSeconds))
                     Divider()
                     if goalProgress >= 1 {
-                        goalRow("Status", "Reached", tint: AppCategory.productive.color)
+                        goalRow("Status", tr("Reached"), tint: AppCategory.productive.color)
                     } else {
                         goalRow("Remaining", Format.compactDuration(max(0, goalSeconds - focusedSeconds)))
                     }
@@ -453,14 +502,15 @@ struct DashboardView: View {
                 }
                 MiniBar(fraction: weeklyGoalProgress, color: tint)
                 Text(weeklyGoalProgress >= 1
-                     ? "Weekly goal reached 🎉"
-                     : "\(Format.compactDuration(remaining)) to reach your \(snapshot.weeklyGoalHours)h weekly goal · change in Settings → General")
+                     ? tr("Weekly goal reached 🎉")
+                     : String(format: tr("%@ to reach your %dh weekly goal · change in Settings → General"),
+                              Format.compactDuration(remaining), snapshot.weeklyGoalHours))
                     .font(.system(size: 11)).foregroundStyle(.secondary)
             }
         }
     }
 
-    private func goalRow(_ label: String, _ value: String, tint: Color? = nil) -> some View {
+    private func goalRow(_ label: LocalizedStringKey, _ value: String, tint: Color? = nil) -> some View {
         HStack {
             Text(label).font(.system(size: 12)).foregroundStyle(.secondary)
             Spacer()
@@ -571,7 +621,7 @@ struct DashboardView: View {
     private func deltaChip(_ recap: WeeklyRecap) -> some View {
         let up = recap.deltaFraction >= 0
         let isNew = recap.previousProductiveSeconds == 0
-        let text = isNew ? "new" : "\(up ? "+" : "")\(Int((recap.deltaFraction * 100).rounded()))%"
+        let text = isNew ? tr("new") : "\(up ? "+" : "")\(Int((recap.deltaFraction * 100).rounded()))%"
         let color = up ? AppCategory.productive.color : AppCategory.distracting.color
         return HStack(spacing: 5) {
             if !isNew { Image(systemName: up ? "arrow.up.right" : "arrow.down.right") }
@@ -586,12 +636,12 @@ struct DashboardView: View {
 
     private func recapStat(_ label: String, _ value: String, _ sub: String) -> some View {
         VStack(alignment: .leading, spacing: 2) {
-            Text(label.uppercased())
+            Text(tr(label).uppercased())
                 .font(.system(size: 10, weight: .semibold))
                 .foregroundStyle(.tertiary)
             Text(value).font(.system(size: 14, weight: .semibold)).lineLimit(1)
             if !sub.isEmpty {
-                Text(sub).font(.system(size: 11)).foregroundStyle(.secondary)
+                Text(tr(sub)).font(.system(size: 11)).foregroundStyle(.secondary)
             }
         }
     }
@@ -654,7 +704,7 @@ struct DashboardView: View {
     private func legendSwatch(_ color: Color, _ label: String) -> some View {
         HStack(spacing: 4) {
             RoundedRectangle(cornerRadius: 2).fill(color).frame(width: 9, height: 9)
-            Text(label).font(.system(size: 10)).foregroundStyle(.secondary)
+            Text(tr(label)).font(.system(size: 10)).foregroundStyle(.secondary)
         }
     }
 
@@ -822,7 +872,7 @@ struct DashboardView: View {
 
     // MARK: Helpers
 
-    private func emptyState(_ text: String) -> some View {
+    private func emptyState(_ text: LocalizedStringKey) -> some View {
         VStack(spacing: 8) {
             Image(systemName: "moon.zzz")
                 .font(.system(size: 26))

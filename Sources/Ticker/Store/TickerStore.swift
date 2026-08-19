@@ -30,6 +30,17 @@ final class TickerStore: ObservableObject {
     @Published var minBreakGapMinutes = 30 { didSet { scheduleSave() } }
     @Published var breakOverlayAllScreens = true { didSet { scheduleSave() } }
 
+    // Overview layout. `dashboardWidgetOrder` is always the complete set of
+    // widgets (new ones appended on load); `hiddenDashboardWidgets` are the ones
+    // the user has switched off.
+    @Published var dashboardWidgetOrder: [DashboardWidget] = DashboardWidget.allCases {
+        didSet { scheduleSave() }
+    }
+    @Published var hiddenDashboardWidgets: Set<DashboardWidget> = [] { didSet { scheduleSave() } }
+    // False until the user reorders/hides a card. While false the app uses the
+    // built-in default order, so a new default reaches existing installs.
+    @Published private(set) var dashboardLayoutCustomized = false { didSet { scheduleSave() } }
+
     let screenshotsDirectory: URL
     private let fileURL: URL
     private var savePending = false
@@ -94,6 +105,45 @@ final class TickerStore: ObservableObject {
     func setCategory(_ category: AppCategory, for bundleId: String) {
         categoryOverrides[bundleId] = category
         scheduleSave()
+    }
+
+    // MARK: - Dashboard layout
+
+    /// Widgets to render, in order, skipping any the user has hidden.
+    var visibleDashboardWidgets: [DashboardWidget] {
+        dashboardWidgetOrder.filter { !hiddenDashboardWidgets.contains($0) }
+    }
+
+    func isWidgetVisible(_ widget: DashboardWidget) -> Bool {
+        !hiddenDashboardWidgets.contains(widget)
+    }
+
+    func setWidget(_ widget: DashboardWidget, visible: Bool) {
+        if visible { hiddenDashboardWidgets.remove(widget) } else { hiddenDashboardWidgets.insert(widget) }
+        dashboardLayoutCustomized = true
+    }
+
+    func moveWidget(fromOffsets: IndexSet, toOffset: Int) {
+        dashboardWidgetOrder.move(fromOffsets: fromOffsets, toOffset: toOffset)
+        dashboardLayoutCustomized = true
+    }
+
+    /// Restore the default order with every card visible, and follow the built-in
+    /// default again (so future default changes apply).
+    func resetDashboardLayout() {
+        dashboardWidgetOrder = DashboardWidget.allCases
+        hiddenDashboardWidgets = []
+        dashboardLayoutCustomized = false
+    }
+
+    /// Rebuild the full widget order from persisted keys: keep the saved order,
+    /// drop anything unknown, and append widgets added in newer versions.
+    private static func resolveWidgetOrder(_ raw: [String]) -> [DashboardWidget] {
+        var result = raw.compactMap { DashboardWidget(rawValue: $0) }
+        for widget in DashboardWidget.allCases where !result.contains(widget) {
+            result.append(widget)
+        }
+        return result
     }
 
     // MARK: - Idle review
@@ -203,6 +253,13 @@ final class TickerStore: ObservableObject {
         screenBreakDurationMinutes = decoded.screenBreakDurationMinutes
         minBreakGapMinutes = decoded.minBreakGapMinutes
         breakOverlayAllScreens = decoded.breakOverlayAllScreens
+        dashboardLayoutCustomized = decoded.dashboardLayoutCustomized
+        if dashboardLayoutCustomized {
+            dashboardWidgetOrder = Self.resolveWidgetOrder(decoded.dashboardWidgetOrder)
+            hiddenDashboardWidgets = Set(decoded.hiddenDashboardWidgets.compactMap { DashboardWidget(rawValue: $0) })
+        }
+        // Otherwise keep the built-in default order (so a new default reaches
+        // users who never customized their layout).
     }
 
     /// Coalescing debounce: the first change schedules a flush ~10s out; further
@@ -235,7 +292,10 @@ final class TickerStore: ObservableObject {
             moveBreakDurationMinutes: moveBreakDurationMinutes,
             screenBreakDurationMinutes: screenBreakDurationMinutes,
             minBreakGapMinutes: minBreakGapMinutes,
-            breakOverlayAllScreens: breakOverlayAllScreens
+            breakOverlayAllScreens: breakOverlayAllScreens,
+            dashboardWidgetOrder: dashboardWidgetOrder.map(\.rawValue),
+            hiddenDashboardWidgets: hiddenDashboardWidgets.map(\.rawValue),
+            dashboardLayoutCustomized: dashboardLayoutCustomized
         )
         guard let data = try? JSONEncoder().encode(payload) else { return }
         try? data.write(to: fileURL, options: .atomic)

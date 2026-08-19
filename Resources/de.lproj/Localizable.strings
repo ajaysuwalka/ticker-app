@@ -1,0 +1,305 @@
+/* ==== Navigation, sections, settings tabs ==== */
+"Overview" = "Übersicht";
+"Insights" = "Statistiken";
+"Apps" = "Apps";
+"Timeline" = "Zeitverlauf";
+"Dashboard" = "Dashboard";
+"General" = "Allgemein";
+"Wellness" = "Wohlbefinden";
+"App Categories" = "App-Kategorien";
+"Settings" = "Einstellungen";
+
+/* ==== Menu bar / live status ==== */
+"Active" = "Aktiv";
+"Idle" = "Inaktiv";
+"Paused" = "Pausiert";
+"Tracking" = "Erfassung";
+"Move" = "Bewegung";
+"Eyes" = "Augen";
+"Quit" = "Beenden";
+"Start Tracking" = "Erfassung starten";
+"Pause tracking" = "Erfassung pausieren";
+"Resume tracking" = "Erfassung fortsetzen";
+"Ticker — tracking" = "Ticker — erfasst";
+"Ticker — idle" = "Ticker — inaktiv";
+"Ticker — paused" = "Ticker — pausiert";
+"active today" = "heute aktiv";
+"%@ productive" = "%@ produktiv";
+"%@ / %@" = "%@ / %@";
+"%@ in %@" = "%@ in %@";
+"NEXT BREAKS" = "NÄCHSTE PAUSEN";
+
+/* ==== Stat tiles ==== */
+"Active Time" = "Aktive Zeit";
+"Productive" = "Produktiv";
+"Productivity" = "Produktivität";
+"Interactions" = "Interaktionen";
+"Focus Streak" = "Fokus-Serie";
+"Deep Work" = "Konzentriertes Arbeiten";
+"Longest Focus" = "Längster Fokus";
+"Context Switches" = "Kontextwechsel";
+"in productive apps" = "in produktiven Apps";
+"of active time" = "der aktiven Zeit";
+"%d keys · %d clicks" = "%d Tasten · %d Klicks";
+"tracked engagement" = "erfasste Aktivität";
+"this week" = "diese Woche";
+"this month" = "diesen Monat";
+"25 min+ focus blocks" = "Fokusblöcke ab 25 Min.";
+"app switches" = "App-Wechsel";
+"deepest session" = "intensivste Sitzung";
+
+/* ==== Section titles ==== */
+"Focus Goal" = "Fokusziel";
+"Weekly Hours" = "Wochenstunden";
+"Activity Blocks" = "Aktivitätsblöcke";
+"Focus Split" = "Fokus-Aufteilung";
+"Minute Timeline" = "Minuten-Zeitverlauf";
+"Peak Hours" = "Stoßzeiten";
+"Top Apps" = "Top-Apps";
+"Weekly Recap" = "Wochenrückblick";
+"Where your time went" = "Wohin Ihre Zeit floss";
+"Productivity Trend · Last 14 Days" = "Produktivitätstrend · Letzte 14 Tage";
+"Productivity Trend" = "Produktivitätstrend";
+"Activity Over the Day" = "Aktivität im Tagesverlauf";
+"Focus by Day · This Week" = "Fokus pro Tag · Diese Woche";
+"Focus by Day · This Month" = "Fokus pro Tag · Diesen Monat";
+
+/* ==== Focus goal card ==== */
+"Focused" = "Fokussiert";
+"Goal" = "Ziel";
+"Status" = "Status";
+"Remaining" = "Verbleibend";
+"Reached" = "Erreicht";
+"Weekly goal reached 🎉" = "Wochenziel erreicht 🎉";
+"%@ to reach your %dh weekly goal · change in Settings → General" = "%@ bis zu Ihrem Wochenziel von %dh · änderbar unter Einstellungen → Allgemein";
+
+/* ==== Weekly recap / trend ==== */
+"Best day" = "Bester Tag";
+"Top app" = "Top-App";
+"Avg productivity" = "Ø Produktivität";
+"new" = "neu";
+"vs last week" = "vs. letzte Woche";
+"productive · last 7 days" = "produktiv · letzte 7 Tage";
+"Most active around %@" = "Am aktivsten gegen %@";
+"avg %@" = "Ø %@";
+"Your weekly digest appears after a few days of tracking" = "Ihre Wochenübersicht erscheint nach einigen Tagen der Erfassung";
+
+/* ==== Empty states ==== */
+"No cards are enabled. Turn some on in Settings → Dashboard." = "Keine Karten aktiviert. Aktivieren Sie welche unter Einstellungen → Dashboard.";
+"Switch to Day view to see the minute timeline and per-minute activity blocks." = "Wechseln Sie zur Tagesansicht, um den Minuten-Zeitverlauf und die minutengenauen Aktivitätsblöcke zu sehen.";
+"No interactions recorded yet" = "Noch keine Interaktionen erfasst";
+"No activity in this period yet" = "Noch keine Aktivität in diesem Zeitraum";
+"No hourly activity yet" = "Noch keine stündliche Aktivität";
+"Not enough data for a trend yet" = "Noch nicht genügend Daten für einen Trend";
+"No activity recorded for this day yet" = "Für diesen Tag noch keine Aktivität erfasst";
+"No activity yet" = "Noch keine Aktivität";
+"No apps tracked yet" = "Noch keine Apps erfasst";
+"No apps tracked in this period." = "In diesem Zeitraum keine Apps erfasst.";
+"No apps tracked yet.\nUse your Mac for a bit and they'll appear here." = "Noch keine Apps erfasst.\nNutzen Sie Ihren Mac eine Weile, dann erscheinen sie hier.";
+
+/* ==== Timeline / activity blocks / apps ==== */
+"10-min blocks · tap for detail" = "10-Min.-Blöcke · für Details tippen";
+"Showing the most recent 120 blocks." = "Es werden die letzten 120 Blöcke angezeigt.";
+"%lld of %lld" = "%lld von %lld";
+"+%lld more" = "+%lld weitere";
+"Open full screenshot" = "Vollständigen Screenshot öffnen";
+"Delete this block's screenshot" = "Screenshot dieses Blocks löschen";
+"Screenshots are off — enable the Screen Timeline in Settings to see the screen for each block." = "Screenshots sind aus — aktivieren Sie den Bildschirm-Zeitverlauf in den Einstellungen, um den Bildschirm zu jedem Block zu sehen.";
+"Not available" = "Nicht verfügbar";
+"Screenshots off" = "Screenshots aus";
+"Drop to move here" = "Hierher ziehen zum Verschieben";
+"Drag an app between columns — drop it in Excluded to stop tracking it" = "Ziehen Sie eine App zwischen den Spalten — legen Sie sie in „Ausgeschlossen“ ab, um die Erfassung zu stoppen";
+
+/* ==== Idle review ==== */
+"Delete this idle time?" = "Diese inaktive Zeit löschen?";
+"Removes %lld min (%@) from your tracked data." = "Entfernt %lld Min. (%@) aus Ihren erfassten Daten.";
+"Delete" = "Löschen";
+"Keep as idle" = "Als inaktiv behalten";
+"You were away for %lld min" = "Sie waren %lld Min. abwesend";
+"%@ · Was this a meeting or focused work away from the keyboard?" = "%@ · War das ein Meeting oder konzentriertes Arbeiten abseits der Tastatur?";
+"Yes, it was a meeting" = "Ja, es war ein Meeting";
+"No" = "Nein";
+
+/* ==== Paused reminder ==== */
+"Tracking is paused" = "Erfassung ist pausiert";
+"Ticker isn't recording your activity." = "Ticker zeichnet Ihre Aktivität nicht auf.";
+"Resume" = "Fortsetzen";
+"Snooze" = "Später erinnern";
+
+/* ==== Break overlay ==== */
+"Why now" = "Warum jetzt";
+"How long" = "Wie lange";
+"%@ It's been about %d minutes." = "%@ Es sind etwa %d Minuten vergangen.";
+"Take %@. The timer below counts down and finishes the break on its own — or step away and it's done." = "Machen Sie %@. Der Timer unten zählt herunter und beendet die Pause von selbst — oder treten Sie kurz weg, dann ist sie erledigt.";
+"SUGGESTIONS" = "VORSCHLÄGE";
+"Repeats every %lld min · change in Settings → Wellness" = "Wiederholt sich alle %lld Min. · änderbar unter Einstellungen → Wohlbefinden";
+"Snooze 5 min" = "5 Min. später erinnern";
+"Break ends automatically" = "Pause endet automatisch";
+
+/* ==== Break kinds + reasons + tips ==== */
+"Time to move" = "Zeit für Bewegung";
+"Screen break" = "Bildschirmpause";
+"Stand up and move for 1–2 minutes" = "Stehen Sie auf und bewegen Sie sich 1–2 Minuten";
+"Take a 5–10 minute break from the screen" = "Machen Sie 5–10 Minuten Bildschirmpause";
+"1–2 minutes" = "1–2 Minuten";
+"5–10 minutes" = "5–10 Minuten";
+"You've been sitting and working for a while." = "Sie sitzen und arbeiten schon eine Weile.";
+"Your eyes have been on the screen for a while." = "Ihre Augen sind schon eine Weile auf den Bildschirm gerichtet.";
+"Stand up and stretch — roll your shoulders and neck gently." = "Stehen Sie auf und dehnen Sie sich — kreisen Sie sanft mit Schultern und Nacken.";
+"Walk around for 1–2 minutes." = "Gehen Sie 1–2 Minuten umher.";
+"Reset your posture when you sit back down." = "Korrigieren Sie Ihre Haltung, wenn Sie sich wieder hinsetzen.";
+"Look away and focus on something in the distance (20-20-20)." = "Schauen Sie weg und fokussieren Sie etwas in der Ferne (20-20-20).";
+"Rest your eyes for 5–10 minutes." = "Gönnen Sie Ihren Augen 5–10 Minuten Ruhe.";
+"Don't use other electronic devices while resting." = "Nutzen Sie während der Pause keine anderen elektronischen Geräte.";
+
+/* ==== Notifications ==== */
+"Focus goal reached 🎯" = "Fokusziel erreicht 🎯";
+"You've hit %@ of productive time today. Nice work!" = "Sie haben heute %@ produktive Zeit erreicht. Gut gemacht!";
+"Ticker isn't tracking" = "Ticker erfasst nicht";
+"Tracking is off — you may have forgotten to start it. Your time isn't being counted." = "Die Erfassung ist aus — vielleicht haben Sie vergessen, sie zu starten. Ihre Zeit wird nicht gezählt.";
+
+/* ==== Update banner ==== */
+"Ticker %@ is available" = "Ticker %@ ist verfügbar";
+"You're on %@." = "Sie verwenden %@.";
+"Download" = "Herunterladen";
+
+/* ==== Toolbar / date navigation ==== */
+"Updated %@" = "Aktualisiert %@";
+"Refresh now — auto-refreshes every 5 minutes" = "Jetzt aktualisieren — aktualisiert sich automatisch alle 5 Minuten";
+"Weekly report (PDF)" = "Wochenbericht (PDF)";
+"Monthly report (PDF)" = "Monatsbericht (PDF)";
+"All data (CSV)" = "Alle Daten (CSV)";
+"Export" = "Exportieren";
+"Grant Access" = "Zugriff erlauben";
+"Today" = "Heute";
+"Yesterday" = "Gestern";
+"Previous" = "Zurück";
+"Next" = "Weiter";
+"Close" = "Schließen";
+"Jumps to the week of the day you pick" = "Springt zur Woche des gewählten Tages";
+"Jumps to the month of the day you pick" = "Springt zum Monat des gewählten Tages";
+
+/* ==== Permission banners ==== */
+"Enable Accessibility to track keyboard activity" = "Bedienungshilfen aktivieren, um Tastaturaktivität zu erfassen";
+"App usage and idle time already work. Grant access to count keystrokes for the activity graph." = "App-Nutzung und inaktive Zeit funktionieren bereits. Erlauben Sie den Zugriff, um Tastenanschläge für das Aktivitätsdiagramm zu zählen.";
+"Accessibility Access" = "Zugriff auf Bedienungshilfen";
+"Keyboard activity tracking is enabled." = "Die Erfassung der Tastaturaktivität ist aktiviert.";
+"Needed to count keystrokes. App & idle tracking work without it." = "Erforderlich, um Tastenanschläge zu zählen. App- und Inaktivitätserfassung funktionieren auch ohne.";
+"Open Settings" = "Einstellungen öffnen";
+
+/* ==== Settings — General ==== */
+"Launch Ticker at login" = "Ticker bei der Anmeldung starten";
+"Notify me when I reach my focus goal" = "Benachrichtigen, wenn ich mein Fokusziel erreiche";
+"Permissions" = "Berechtigungen";
+"Daily productive-time goal" = "Tagesziel für produktive Zeit";
+"Shown as a progress ring on the dashboard. Week/month scale it by the number of days." = "Wird als Fortschrittsring im Dashboard angezeigt. Bei Wochen-/Monatsansicht wird es nach Anzahl der Tage skaliert.";
+"Weekly total-hours goal" = "Wochenziel für Gesamtstunden";
+"Total tracked hours this week, shown as the Weekly Hours bar on the dashboard. Default 40h." = "Insgesamt erfasste Stunden dieser Woche, angezeigt als Wochenstunden-Balken im Dashboard. Standard 40h.";
+"Idle Detection" = "Inaktivitätserkennung";
+"Mark as idle after" = "Als inaktiv markieren nach";
+"Time without keyboard or mouse input before a moment counts as idle." = "Zeit ohne Tastatur- oder Mauseingabe, bevor ein Moment als inaktiv gilt.";
+"Screen Timeline (optional)" = "Bildschirm-Zeitverlauf (optional)";
+"Capture screenshots of my screen" = "Screenshots meines Bildschirms aufnehmen";
+"Capture every" = "Aufnehmen alle";
+"Delete screenshots after" = "Screenshots löschen nach";
+"Request access / open settings" = "Zugriff anfragen / Einstellungen öffnen";
+"Saves a small thumbnail of your screen on the interval above while you're active — kept only on this Mac and auto-deleted on the schedule above. Capture starts once you grant permission and reopen Ticker. Shown as the Screen Timeline on the Day view." = "Speichert im obigen Intervall eine kleine Miniatur Ihres Bildschirms, während Sie aktiv sind — bleibt nur auf diesem Mac und wird gemäß dem obigen Zeitplan automatisch gelöscht. Die Aufnahme beginnt, sobald Sie die Berechtigung erteilen und Ticker erneut öffnen. Wird als Bildschirm-Zeitverlauf in der Tagesansicht angezeigt.";
+"Delete all screenshots" = "Alle Screenshots löschen";
+"Privacy" = "Datenschutz";
+"Ticker records the active app and its window title (e.g. browser tab or project) and counts how many keys/clicks you make — never which keys or what you type. Screenshots are off unless you turn on the Screen Timeline above. Your data stays on this Mac; the only network request Ticker makes is a version check to GitHub." = "Ticker erfasst die aktive App und deren Fenstertitel (z. B. Browser-Tab oder Projekt) und zählt, wie viele Tasten/Klicks Sie machen — niemals welche Tasten oder was Sie tippen. Screenshots sind aus, sofern Sie den Bildschirm-Zeitverlauf oben nicht aktivieren. Ihre Daten bleiben auf diesem Mac; die einzige Netzwerkanfrage von Ticker ist eine Versionsprüfung bei GitHub.";
+"Data" = "Daten";
+"Clear all tracked data" = "Alle erfassten Daten löschen";
+"Delete all tracked history? This can't be undone." = "Den gesamten erfassten Verlauf löschen? Das kann nicht rückgängig gemacht werden.";
+"Delete Everything" = "Alles löschen";
+"Cancel" = "Abbrechen";
+
+/* ==== Settings — Dashboard ==== */
+"Overview cards" = "Übersichtskarten";
+"Drag the ☰ handle to reorder, and toggle to show or hide each card. The focus ring, activity graph, and trend sit side-by-side when they're next to each other. Changes apply to the Overview tab instantly." = "Ziehen Sie am Griff ☰, um umzusortieren, und schalten Sie jede Karte ein oder aus. Fokusring, Aktivitätsdiagramm und Trend stehen nebeneinander, wenn sie benachbart sind. Änderungen werden im Tab „Übersicht“ sofort wirksam.";
+"Only the Overview tab is customizable." = "Nur der Tab „Übersicht“ ist anpassbar.";
+"Reset to default" = "Auf Standard zurücksetzen";
+
+/* ==== Settings — Wellness ==== */
+"Break reminders" = "Pausenerinnerungen";
+"Remind me to take breaks" = "An Pausen erinnern";
+"Stand & move break" = "Aufsteh- & Bewegungspause";
+"Screen / eye break" = "Bildschirm-/Augenpause";
+"Move break length" = "Dauer der Bewegungspause";
+"Screen break length" = "Dauer der Bildschirmpause";
+"Minimum time between breaks" = "Mindestabstand zwischen Pausen";
+"Show the reminder over all apps" = "Erinnerung über allen Apps anzeigen";
+"Move breaks are 1–2 minutes; screen breaks are 5–10 minutes. Timers count only active time and pause when you step away — a long enough break counts as taken. With “over all apps” off, the reminder appears only inside Ticker." = "Bewegungspausen dauern 1–2 Minuten; Bildschirmpausen 5–10 Minuten. Timer zählen nur die aktive Zeit und pausieren, wenn Sie weggehen — eine ausreichend lange Pause gilt als erledigt. Ist „über allen Apps“ aus, erscheint die Erinnerung nur innerhalb von Ticker.";
+"Ergonomics" = "Ergonomie";
+"Keep your feet flat on the ground and your back supported by the chair." = "Stellen Sie die Füße flach auf den Boden und lassen Sie den Rücken vom Stuhl stützen.";
+"Center the keyboard directly in front of you." = "Zentrieren Sie die Tastatur direkt vor sich.";
+"Center the screen above the keyboard." = "Zentrieren Sie den Bildschirm über der Tastatur.";
+"Prefer a desktop computer when you can." = "Bevorzugen Sie nach Möglichkeit einen Desktop-Computer.";
+"Keep the screen about 40–70 cm from your eyes." = "Halten Sie etwa 40–70 cm Abstand zwischen Augen und Bildschirm.";
+"Arrange lighting and windows so they don't cause glare." = "Richten Sie Beleuchtung und Fenster so aus, dass keine Blendung entsteht.";
+"Every 30 minutes, stand up and move for 1–2 minutes." = "Stehen Sie alle 30 Minuten auf und bewegen Sie sich 1–2 Minuten.";
+"Every 60 minutes, take a 5–10 minute break from the screen." = "Machen Sie alle 60 Minuten 5–10 Minuten Bildschirmpause.";
+"To avoid eye fatigue, look away and focus on something in the distance." = "Um Augenermüdung zu vermeiden, schauen Sie weg und fokussieren Sie etwas in der Ferne.";
+
+/* ==== Settings — Categories ==== */
+"Search apps" = "Apps suchen";
+
+/* ==== Pickers — durations / intervals ==== */
+"1 minute" = "1 Minute";
+"2 minutes" = "2 Minuten";
+"3 minutes" = "3 Minuten";
+"5 minutes" = "5 Minuten";
+"10 minutes" = "10 Minuten";
+"15 minutes" = "15 Minuten";
+"30 minutes" = "30 Minuten";
+"1 hour" = "1 Stunde";
+"1 day" = "1 Tag";
+"2 days" = "2 Tage";
+"3 days" = "3 Tage";
+"7 days" = "7 Tage";
+"14 days" = "14 Tage";
+"30 days" = "30 Tage";
+"Every 15 min" = "Alle 15 Min.";
+"Every 20 min" = "Alle 20 Min.";
+"Every 30 min" = "Alle 30 Min.";
+"Every 45 min" = "Alle 45 Min.";
+"Every 60 min" = "Alle 60 Min.";
+"Every 90 min" = "Alle 90 Min.";
+"Every 2 hours" = "Alle 2 Stunden";
+"No minimum" = "Kein Mindestabstand";
+"15 min" = "15 Min.";
+"20 min" = "20 Min.";
+"30 min" = "30 Min.";
+"45 min" = "45 Min.";
+
+/* ==== PDF report ==== */
+"PRODUCTIVITY" = "PRODUKTIVITÄT";
+"Weekly Report" = "Wochenbericht";
+"Monthly Report" = "Monatsbericht";
+"Active time" = "Aktive Zeit";
+"Distracting" = "Ablenkend";
+"Focus split" = "Fokus-Aufteilung";
+"Daily focus this month" = "Täglicher Fokus diesen Monat";
+"Daily focus this week" = "Täglicher Fokus diese Woche";
+"Top apps" = "Top-Apps";
+"All data stays on your Mac" = "Alle Daten bleiben auf Ihrem Mac";
+"Generated by Ticker · %@" = "Erstellt von Ticker · %@";
+
+/* ==== App categories ==== */
+"Neutral" = "Neutral";
+"Excluded" = "Ausgeschlossen";
+
+/* ==== Dashboard widget names (Settings → Dashboard) ==== */
+"Stat tiles" = "Statistik-Kacheln";
+"Focus goal" = "Fokusziel";
+"Activity graph" = "Aktivitätsdiagramm";
+"Productivity trend" = "Produktivitätstrend";
+"Weekly hours" = "Wochenstunden";
+"Tracked, focus, keys & clicks at a glance" = "Erfasst, Fokus, Tasten & Klicks auf einen Blick";
+"Daily focus ring and streak" = "Täglicher Fokusring und Serie";
+"Per-hour activity for the period" = "Stündliche Aktivität für den Zeitraum";
+"Productive vs. distracting over time" = "Produktiv vs. ablenkend im Zeitverlauf";
+"Progress toward your weekly hours goal" = "Fortschritt zu Ihrem Wochenstunden-Ziel";
+
+/* ==== Misc ==== */
+"%@ total" = "%@ gesamt";
+"now" = "jetzt";

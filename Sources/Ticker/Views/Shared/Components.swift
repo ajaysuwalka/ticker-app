@@ -24,7 +24,7 @@ struct Card<Content: View>: View {
 }
 
 struct StatTile: View {
-    let title: String
+    let title: LocalizedStringKey
     let value: String
     let subtitle: String
     let symbol: String
@@ -57,7 +57,7 @@ struct StatTile: View {
 }
 
 struct SectionTitle: View {
-    let text: String
+    let text: LocalizedStringKey
     var symbol: String? = nil
 
     var body: some View {

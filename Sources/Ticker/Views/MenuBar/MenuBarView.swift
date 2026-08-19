@@ -22,8 +22,8 @@ struct MenuBarLabelView: View {
     var body: some View {
         Image(nsImage: rendered)
             .accessibilityLabel(tracker.isTracking
-                ? (tracker.isActive ? "Ticker — tracking" : "Ticker — idle")
-                : "Ticker — paused")
+                ? (tracker.isActive ? tr("Ticker — tracking") : tr("Ticker — idle"))
+                : tr("Ticker — paused"))
     }
 
     private var rendered: NSImage {
@@ -129,15 +129,15 @@ struct MenuBarView: View {
             pillHover = hovering
             if hovering { NSCursor.pointingHand.push() } else { NSCursor.pop() }
         }
-        .help(tracker.isTracking ? "Pause tracking" : "Resume tracking")
+        .help(tracker.isTracking ? tr("Pause tracking") : tr("Resume tracking"))
     }
 
     // MARK: Break countdown
 
     private var breakRow: some View {
         HStack(spacing: 10) {
-            breakChip("figure.walk", "Move", breaks.secondsUntilMove)
-            breakChip("eye", "Eyes", breaks.secondsUntilScreen)
+            breakChip("figure.walk", tr("Move"), breaks.secondsUntilMove)
+            breakChip("eye", tr("Eyes"), breaks.secondsUntilScreen)
         }
     }
 
@@ -215,13 +215,13 @@ struct MenuBarView: View {
 
     private var actionBar: some View {
         HStack(spacing: 8) {
-            actionButton("chart.bar.xaxis", "Dashboard") { openDashboard() }
-            SettingsLink { actionLabel("gearshape.fill", "Settings") }
+            actionButton("chart.bar.xaxis", tr("Dashboard")) { openDashboard() }
+            SettingsLink { actionLabel("gearshape.fill", tr("Settings")) }
                 .buttonStyle(.plain)
                 .simultaneousGesture(TapGesture().onEnded {
                     NSApplication.shared.activate(ignoringOtherApps: true)
                 })
-            actionButton("power", "Quit") { quit() }
+            actionButton("power", tr("Quit")) { quit() }
         }
     }
 
@@ -243,8 +243,8 @@ struct MenuBarView: View {
     // MARK: Derived
 
     private var mainLabel: String {
-        guard tracker.isTracking else { return "Paused" }
-        return tracker.isActive ? tracker.currentAppName : "Idle"
+        guard tracker.isTracking else { return tr("Paused") }
+        return tracker.isActive ? tracker.currentAppName : tr("Idle")
     }
 
     private func openDashboard() {

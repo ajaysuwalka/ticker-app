@@ -1,0 +1,305 @@
+/* ==== Navigation, sections, settings tabs ==== */
+"Overview" = "Overview";
+"Insights" = "Insights";
+"Apps" = "Apps";
+"Timeline" = "Timeline";
+"Dashboard" = "Dashboard";
+"General" = "General";
+"Wellness" = "Wellness";
+"App Categories" = "App Categories";
+"Settings" = "Settings";
+
+/* ==== Menu bar / live status ==== */
+"Active" = "Active";
+"Idle" = "Idle";
+"Paused" = "Paused";
+"Tracking" = "Tracking";
+"Move" = "Move";
+"Eyes" = "Eyes";
+"Quit" = "Quit";
+"Start Tracking" = "Start Tracking";
+"Pause tracking" = "Pause tracking";
+"Resume tracking" = "Resume tracking";
+"Ticker — tracking" = "Ticker — tracking";
+"Ticker — idle" = "Ticker — idle";
+"Ticker — paused" = "Ticker — paused";
+"active today" = "active today";
+"%@ productive" = "%@ productive";
+"%@ / %@" = "%@ / %@";
+"%@ in %@" = "%@ in %@";
+"NEXT BREAKS" = "NEXT BREAKS";
+
+/* ==== Stat tiles ==== */
+"Active Time" = "Active Time";
+"Productive" = "Productive";
+"Productivity" = "Productivity";
+"Interactions" = "Interactions";
+"Focus Streak" = "Focus Streak";
+"Deep Work" = "Deep Work";
+"Longest Focus" = "Longest Focus";
+"Context Switches" = "Context Switches";
+"in productive apps" = "in productive apps";
+"of active time" = "of active time";
+"%d keys · %d clicks" = "%d keys · %d clicks";
+"tracked engagement" = "tracked engagement";
+"this week" = "this week";
+"this month" = "this month";
+"25 min+ focus blocks" = "25 min+ focus blocks";
+"app switches" = "app switches";
+"deepest session" = "deepest session";
+
+/* ==== Section titles ==== */
+"Focus Goal" = "Focus Goal";
+"Weekly Hours" = "Weekly Hours";
+"Activity Blocks" = "Activity Blocks";
+"Focus Split" = "Focus Split";
+"Minute Timeline" = "Minute Timeline";
+"Peak Hours" = "Peak Hours";
+"Top Apps" = "Top Apps";
+"Weekly Recap" = "Weekly Recap";
+"Where your time went" = "Where your time went";
+"Productivity Trend · Last 14 Days" = "Productivity Trend · Last 14 Days";
+"Productivity Trend" = "Productivity Trend";
+"Activity Over the Day" = "Activity Over the Day";
+"Focus by Day · This Week" = "Focus by Day · This Week";
+"Focus by Day · This Month" = "Focus by Day · This Month";
+
+/* ==== Focus goal card ==== */
+"Focused" = "Focused";
+"Goal" = "Goal";
+"Status" = "Status";
+"Remaining" = "Remaining";
+"Reached" = "Reached";
+"Weekly goal reached 🎉" = "Weekly goal reached 🎉";
+"%@ to reach your %dh weekly goal · change in Settings → General" = "%@ to reach your %dh weekly goal · change in Settings → General";
+
+/* ==== Weekly recap / trend ==== */
+"Best day" = "Best day";
+"Top app" = "Top app";
+"Avg productivity" = "Avg productivity";
+"new" = "new";
+"vs last week" = "vs last week";
+"productive · last 7 days" = "productive · last 7 days";
+"Most active around %@" = "Most active around %@";
+"avg %@" = "avg %@";
+"Your weekly digest appears after a few days of tracking" = "Your weekly digest appears after a few days of tracking";
+
+/* ==== Empty states ==== */
+"No cards are enabled. Turn some on in Settings → Dashboard." = "No cards are enabled. Turn some on in Settings → Dashboard.";
+"Switch to Day view to see the minute timeline and per-minute activity blocks." = "Switch to Day view to see the minute timeline and per-minute activity blocks.";
+"No interactions recorded yet" = "No interactions recorded yet";
+"No activity in this period yet" = "No activity in this period yet";
+"No hourly activity yet" = "No hourly activity yet";
+"Not enough data for a trend yet" = "Not enough data for a trend yet";
+"No activity recorded for this day yet" = "No activity recorded for this day yet";
+"No activity yet" = "No activity yet";
+"No apps tracked yet" = "No apps tracked yet";
+"No apps tracked in this period." = "No apps tracked in this period.";
+"No apps tracked yet.\nUse your Mac for a bit and they'll appear here." = "No apps tracked yet.\nUse your Mac for a bit and they'll appear here.";
+
+/* ==== Timeline / activity blocks / apps ==== */
+"10-min blocks · tap for detail" = "10-min blocks · tap for detail";
+"Showing the most recent 120 blocks." = "Showing the most recent 120 blocks.";
+"%lld of %lld" = "%lld of %lld";
+"+%lld more" = "+%lld more";
+"Open full screenshot" = "Open full screenshot";
+"Delete this block's screenshot" = "Delete this block's screenshot";
+"Screenshots are off — enable the Screen Timeline in Settings to see the screen for each block." = "Screenshots are off — enable the Screen Timeline in Settings to see the screen for each block.";
+"Not available" = "Not available";
+"Screenshots off" = "Screenshots off";
+"Drop to move here" = "Drop to move here";
+"Drag an app between columns — drop it in Excluded to stop tracking it" = "Drag an app between columns — drop it in Excluded to stop tracking it";
+
+/* ==== Idle review ==== */
+"Delete this idle time?" = "Delete this idle time?";
+"Removes %lld min (%@) from your tracked data." = "Removes %lld min (%@) from your tracked data.";
+"Delete" = "Delete";
+"Keep as idle" = "Keep as idle";
+"You were away for %lld min" = "You were away for %lld min";
+"%@ · Was this a meeting or focused work away from the keyboard?" = "%@ · Was this a meeting or focused work away from the keyboard?";
+"Yes, it was a meeting" = "Yes, it was a meeting";
+"No" = "No";
+
+/* ==== Paused reminder ==== */
+"Tracking is paused" = "Tracking is paused";
+"Ticker isn't recording your activity." = "Ticker isn't recording your activity.";
+"Resume" = "Resume";
+"Snooze" = "Snooze";
+
+/* ==== Break overlay ==== */
+"Why now" = "Why now";
+"How long" = "How long";
+"%@ It's been about %d minutes." = "%@ It's been about %d minutes.";
+"Take %@. The timer below counts down and finishes the break on its own — or step away and it's done." = "Take %@. The timer below counts down and finishes the break on its own — or step away and it's done.";
+"SUGGESTIONS" = "SUGGESTIONS";
+"Repeats every %lld min · change in Settings → Wellness" = "Repeats every %lld min · change in Settings → Wellness";
+"Snooze 5 min" = "Snooze 5 min";
+"Break ends automatically" = "Break ends automatically";
+
+/* ==== Break kinds + reasons + tips ==== */
+"Time to move" = "Time to move";
+"Screen break" = "Screen break";
+"Stand up and move for 1–2 minutes" = "Stand up and move for 1–2 minutes";
+"Take a 5–10 minute break from the screen" = "Take a 5–10 minute break from the screen";
+"1–2 minutes" = "1–2 minutes";
+"5–10 minutes" = "5–10 minutes";
+"You've been sitting and working for a while." = "You've been sitting and working for a while.";
+"Your eyes have been on the screen for a while." = "Your eyes have been on the screen for a while.";
+"Stand up and stretch — roll your shoulders and neck gently." = "Stand up and stretch — roll your shoulders and neck gently.";
+"Walk around for 1–2 minutes." = "Walk around for 1–2 minutes.";
+"Reset your posture when you sit back down." = "Reset your posture when you sit back down.";
+"Look away and focus on something in the distance (20-20-20)." = "Look away and focus on something in the distance (20-20-20).";
+"Rest your eyes for 5–10 minutes." = "Rest your eyes for 5–10 minutes.";
+"Don't use other electronic devices while resting." = "Don't use other electronic devices while resting.";
+
+/* ==== Notifications ==== */
+"Focus goal reached 🎯" = "Focus goal reached 🎯";
+"You've hit %@ of productive time today. Nice work!" = "You've hit %@ of productive time today. Nice work!";
+"Ticker isn't tracking" = "Ticker isn't tracking";
+"Tracking is off — you may have forgotten to start it. Your time isn't being counted." = "Tracking is off — you may have forgotten to start it. Your time isn't being counted.";
+
+/* ==== Update banner ==== */
+"Ticker %@ is available" = "Ticker %@ is available";
+"You're on %@." = "You're on %@.";
+"Download" = "Download";
+
+/* ==== Toolbar / date navigation ==== */
+"Updated %@" = "Updated %@";
+"Refresh now — auto-refreshes every 5 minutes" = "Refresh now — auto-refreshes every 5 minutes";
+"Weekly report (PDF)" = "Weekly report (PDF)";
+"Monthly report (PDF)" = "Monthly report (PDF)";
+"All data (CSV)" = "All data (CSV)";
+"Export" = "Export";
+"Grant Access" = "Grant Access";
+"Today" = "Today";
+"Yesterday" = "Yesterday";
+"Previous" = "Previous";
+"Next" = "Next";
+"Close" = "Close";
+"Jumps to the week of the day you pick" = "Jumps to the week of the day you pick";
+"Jumps to the month of the day you pick" = "Jumps to the month of the day you pick";
+
+/* ==== Permission banners ==== */
+"Enable Accessibility to track keyboard activity" = "Enable Accessibility to track keyboard activity";
+"App usage and idle time already work. Grant access to count keystrokes for the activity graph." = "App usage and idle time already work. Grant access to count keystrokes for the activity graph.";
+"Accessibility Access" = "Accessibility Access";
+"Keyboard activity tracking is enabled." = "Keyboard activity tracking is enabled.";
+"Needed to count keystrokes. App & idle tracking work without it." = "Needed to count keystrokes. App & idle tracking work without it.";
+"Open Settings" = "Open Settings";
+
+/* ==== Settings — General ==== */
+"Launch Ticker at login" = "Launch Ticker at login";
+"Notify me when I reach my focus goal" = "Notify me when I reach my focus goal";
+"Permissions" = "Permissions";
+"Daily productive-time goal" = "Daily productive-time goal";
+"Shown as a progress ring on the dashboard. Week/month scale it by the number of days." = "Shown as a progress ring on the dashboard. Week/month scale it by the number of days.";
+"Weekly total-hours goal" = "Weekly total-hours goal";
+"Total tracked hours this week, shown as the Weekly Hours bar on the dashboard. Default 40h." = "Total tracked hours this week, shown as the Weekly Hours bar on the dashboard. Default 40h.";
+"Idle Detection" = "Idle Detection";
+"Mark as idle after" = "Mark as idle after";
+"Time without keyboard or mouse input before a moment counts as idle." = "Time without keyboard or mouse input before a moment counts as idle.";
+"Screen Timeline (optional)" = "Screen Timeline (optional)";
+"Capture screenshots of my screen" = "Capture screenshots of my screen";
+"Capture every" = "Capture every";
+"Delete screenshots after" = "Delete screenshots after";
+"Request access / open settings" = "Request access / open settings";
+"Saves a small thumbnail of your screen on the interval above while you're active — kept only on this Mac and auto-deleted on the schedule above. Capture starts once you grant permission and reopen Ticker. Shown as the Screen Timeline on the Day view." = "Saves a small thumbnail of your screen on the interval above while you're active — kept only on this Mac and auto-deleted on the schedule above. Capture starts once you grant permission and reopen Ticker. Shown as the Screen Timeline on the Day view.";
+"Delete all screenshots" = "Delete all screenshots";
+"Privacy" = "Privacy";
+"Ticker records the active app and its window title (e.g. browser tab or project) and counts how many keys/clicks you make — never which keys or what you type. Screenshots are off unless you turn on the Screen Timeline above. Your data stays on this Mac; the only network request Ticker makes is a version check to GitHub." = "Ticker records the active app and its window title (e.g. browser tab or project) and counts how many keys/clicks you make — never which keys or what you type. Screenshots are off unless you turn on the Screen Timeline above. Your data stays on this Mac; the only network request Ticker makes is a version check to GitHub.";
+"Data" = "Data";
+"Clear all tracked data" = "Clear all tracked data";
+"Delete all tracked history? This can't be undone." = "Delete all tracked history? This can't be undone.";
+"Delete Everything" = "Delete Everything";
+"Cancel" = "Cancel";
+
+/* ==== Settings — Dashboard ==== */
+"Overview cards" = "Overview cards";
+"Drag the ☰ handle to reorder, and toggle to show or hide each card. The focus ring, activity graph, and trend sit side-by-side when they're next to each other. Changes apply to the Overview tab instantly." = "Drag the ☰ handle to reorder, and toggle to show or hide each card. The focus ring, activity graph, and trend sit side-by-side when they're next to each other. Changes apply to the Overview tab instantly.";
+"Only the Overview tab is customizable." = "Only the Overview tab is customizable.";
+"Reset to default" = "Reset to default";
+
+/* ==== Settings — Wellness ==== */
+"Break reminders" = "Break reminders";
+"Remind me to take breaks" = "Remind me to take breaks";
+"Stand & move break" = "Stand & move break";
+"Screen / eye break" = "Screen / eye break";
+"Move break length" = "Move break length";
+"Screen break length" = "Screen break length";
+"Minimum time between breaks" = "Minimum time between breaks";
+"Show the reminder over all apps" = "Show the reminder over all apps";
+"Move breaks are 1–2 minutes; screen breaks are 5–10 minutes. Timers count only active time and pause when you step away — a long enough break counts as taken. With “over all apps” off, the reminder appears only inside Ticker." = "Move breaks are 1–2 minutes; screen breaks are 5–10 minutes. Timers count only active time and pause when you step away — a long enough break counts as taken. With “over all apps” off, the reminder appears only inside Ticker.";
+"Ergonomics" = "Ergonomics";
+"Keep your feet flat on the ground and your back supported by the chair." = "Keep your feet flat on the ground and your back supported by the chair.";
+"Center the keyboard directly in front of you." = "Center the keyboard directly in front of you.";
+"Center the screen above the keyboard." = "Center the screen above the keyboard.";
+"Prefer a desktop computer when you can." = "Prefer a desktop computer when you can.";
+"Keep the screen about 40–70 cm from your eyes." = "Keep the screen about 40–70 cm from your eyes.";
+"Arrange lighting and windows so they don't cause glare." = "Arrange lighting and windows so they don't cause glare.";
+"Every 30 minutes, stand up and move for 1–2 minutes." = "Every 30 minutes, stand up and move for 1–2 minutes.";
+"Every 60 minutes, take a 5–10 minute break from the screen." = "Every 60 minutes, take a 5–10 minute break from the screen.";
+"To avoid eye fatigue, look away and focus on something in the distance." = "To avoid eye fatigue, look away and focus on something in the distance.";
+
+/* ==== Settings — Categories ==== */
+"Search apps" = "Search apps";
+
+/* ==== Pickers — durations / intervals ==== */
+"1 minute" = "1 minute";
+"2 minutes" = "2 minutes";
+"3 minutes" = "3 minutes";
+"5 minutes" = "5 minutes";
+"10 minutes" = "10 minutes";
+"15 minutes" = "15 minutes";
+"30 minutes" = "30 minutes";
+"1 hour" = "1 hour";
+"1 day" = "1 day";
+"2 days" = "2 days";
+"3 days" = "3 days";
+"7 days" = "7 days";
+"14 days" = "14 days";
+"30 days" = "30 days";
+"Every 15 min" = "Every 15 min";
+"Every 20 min" = "Every 20 min";
+"Every 30 min" = "Every 30 min";
+"Every 45 min" = "Every 45 min";
+"Every 60 min" = "Every 60 min";
+"Every 90 min" = "Every 90 min";
+"Every 2 hours" = "Every 2 hours";
+"No minimum" = "No minimum";
+"15 min" = "15 min";
+"20 min" = "20 min";
+"30 min" = "30 min";
+"45 min" = "45 min";
+
+/* ==== PDF report ==== */
+"PRODUCTIVITY" = "PRODUCTIVITY";
+"Weekly Report" = "Weekly Report";
+"Monthly Report" = "Monthly Report";
+"Active time" = "Active time";
+"Distracting" = "Distracting";
+"Focus split" = "Focus split";
+"Daily focus this month" = "Daily focus this month";
+"Daily focus this week" = "Daily focus this week";
+"Top apps" = "Top apps";
+"All data stays on your Mac" = "All data stays on your Mac";
+"Generated by Ticker · %@" = "Generated by Ticker · %@";
+
+/* ==== App categories ==== */
+"Neutral" = "Neutral";
+"Excluded" = "Excluded";
+
+/* ==== Dashboard widget names (Settings → Dashboard) ==== */
+"Stat tiles" = "Stat tiles";
+"Focus goal" = "Focus goal";
+"Activity graph" = "Activity graph";
+"Productivity trend" = "Productivity trend";
+"Weekly hours" = "Weekly hours";
+"Tracked, focus, keys & clicks at a glance" = "Tracked, focus, keys & clicks at a glance";
+"Daily focus ring and streak" = "Daily focus ring and streak";
+"Per-hour activity for the period" = "Per-hour activity for the period";
+"Productive vs. distracting over time" = "Productive vs. distracting over time";
+"Progress toward your weekly hours goal" = "Progress toward your weekly hours goal";
+
+/* ==== Misc ==== */
+"%@ total" = "%@ total";
+"now" = "now";
