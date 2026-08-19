@@ -1,0 +1,46 @@
+# CodeRabbit configuration — https://docs.coderabbit.ai/guides/configure-coderabbit
+# yaml-language-server: $schema=https://coderabbit.ai/integrations/schema.v2.json
+language: en-US
+early_access: false
+
+reviews:
+  profile: chill               # concise, high-signal reviews
+  request_changes_workflow: false
+  high_level_summary: true
+  poem: false
+  review_status: true
+  collapse_walkthrough: false
+  auto_review:
+    enabled: true
+    drafts: false
+    base_branches:
+      - main
+  # Project-specific guidance so reviews reflect Ticker's constraints.
+  path_instructions:
+    - path: "Sources/**/*.swift"
+      instructions: >-
+        Ticker is a privacy-first, 100% on-device macOS app. Flag any new
+        network activity (URLSession, sockets, third-party analytics/telemetry)
+        — the ONLY permitted request is the existing GitHub version check in
+        UpdateChecker.swift. Flag anything that could log, persist, or transmit
+        keystroke or mouse *content*: the app only counts how many keys/clicks
+        occur, never which keys or what is typed. Prefer SwiftUI-idiomatic code
+        and keep @MainActor isolation correct.
+    - path: "Resources/**/Localizable.strings"
+      instructions: >-
+        Localization files. The key (left of `=`) MUST stay byte-for-byte
+        identical to the English base in en.lproj — only translate the value.
+        Every format specifier (%@, %d, %lld, %dh) must match the English entry.
+        Do not translate the brand name "Ticker".
+    - path: "**/*Tests*.swift"
+      instructions: >-
+        Tests run via SwiftPM + XCTest in CI. Prefer deterministic tests that
+        inject a temp directory into TickerStore rather than touching real
+        application-support state.
+
+  tools:
+    swiftlint:
+      enabled: true            # honors the repo's .swiftlint.yml
+
+chat:
+  auto_reply: true
